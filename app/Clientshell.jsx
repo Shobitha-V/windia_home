@@ -63,6 +63,7 @@ export default function ClientShell({ children }) {
   const [annCurrent,  setAnnCurrent]  = useState(0)
   const [annPhase,    setAnnPhase]    = useState('visible')
   const [showTooltip, setShowTooltip] = useState(false)
+  const [showQr, setShowQr] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -92,7 +93,32 @@ export default function ClientShell({ children }) {
 
   return (
     <>
-      {/* ── HEADER / MAIN NAV ── */}
+
+    {/* ── ANNOUNCEMENT BAR (below nav) ── */}
+      <div className="ann-bar" role="region" aria-label="Announcements">
+        <div className="ann-inner">
+          <span className="ann-dot" aria-hidden="true" />
+          <div className="ann-slot" aria-live="polite" aria-atomic="true">
+            <span className={`ann-text ${annPhase}`}>
+              {renderAnnMessage(annMessages[annCurrent])}
+            </span>
+          </div>
+          <span className="ann-dot" aria-hidden="true" />
+          <div className="ann-pips" aria-label="Announcement navigation">
+            {annMessages.map((_, i) => (
+              <button
+                key={i}
+                className={`ann-pip${i === annCurrent ? ' active' : ''}`}
+                onClick={() => goToAnn(i)}
+                aria-label={`Go to announcement ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+
+      {/* ── NAV ── */}
       <nav id="mainNav" className={scrolled ? 'scrolled' : ''}>
         <Link href="/" className="logo" onClick={() => setActiveLink('/')}>
           <Image src={windialogo} alt="WIN-DIA logo" className="logo-emblem" priority />
@@ -156,29 +182,6 @@ export default function ClientShell({ children }) {
         </div>
       </nav>
 
-      {/* ── ANNOUNCEMENT BAR (below nav) ── */}
-      <div className="ann-bar" role="region" aria-label="Announcements">
-        <div className="ann-inner">
-          <span className="ann-dot" aria-hidden="true" />
-          <div className="ann-slot" aria-live="polite" aria-atomic="true">
-            <span className={`ann-text ${annPhase}`}>
-              {renderAnnMessage(annMessages[annCurrent])}
-            </span>
-          </div>
-          <span className="ann-dot" aria-hidden="true" />
-          <div className="ann-pips" aria-label="Announcement navigation">
-            {annMessages.map((_, i) => (
-              <button
-                key={i}
-                className={`ann-pip${i === annCurrent ? ' active' : ''}`}
-                onClick={() => goToAnn(i)}
-                aria-label={`Go to announcement ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* ── MOBILE SEARCH OVERLAY ── */}
       {searchOpen && (
         <div className="mobile-search-overlay">
@@ -210,87 +213,121 @@ export default function ClientShell({ children }) {
       {/* ── PAGE CONTENT ── */}
       <main>{children}</main>
 
-      {/* ── FOOTER ── */}
-      <footer className="footer">
-        <div className="footer-inner">
-          <div className="footer-top">
-            <div className="footer-brand">
-              <div className="footer-logo">WIN-DIA</div>
-              <div className="footer-tagline">The Divine Healthy Crunch</div>
-              <p className="footer-desc">
-                Ancient wisdom meets modern wellness.<br />
-                Crafted with love, backed by science.
-              </p>
-            </div>
-            <div className="footer-brand-right">
-              <div className="footer-rule-v" />
-              <p className="footer-copy">© 2025 Kalpavristi Coco Foods. All rights reserved.</p>
+     {/* ── FOOTER ── */}
+<footer className="footer">
+  <div className="footer-inner">
+    <div className="footer-top">
+      <div className="footer-brand">
+        <div className="footer-logo">WIN-DIA</div>
+        <div className="footer-tagline">The Divine Healthy Crunch</div>
+        <p className="footer-desc">
+          Ancient wisdom meets modern wellness.<br />
+          Crafted with love, backed by science.
+        </p>
+      </div>
+      <div className="footer-brand-right">
+        <div className="footer-rule-v" />
+        <p className="footer-copy">© 2025 Kalpavristi Coco Foods. All rights reserved.</p>
+      </div>
+    </div>
+
+    <div className="footer-divider" />
+
+    <div className="footer-cols">
+      <div className="footer-col">
+        <h4 className="footer-col-title">Quick Links</h4>
+        <div className="footer-col-rule" />
+        <ul className="footer-links">
+          <li><Link href="/shop">Shop</Link></li>
+          <li><Link href="/our-story">Our Story</Link></li>
+          <li><Link href="/health-benefits">Health Benefits</Link></li>
+          <li><Link href="/contact">Contact</Link></li>
+          <li><Link href="/track-order">Track Order</Link></li>
+        </ul>
+      </div>
+
+      <div className="footer-col">
+        <h4 className="footer-col-title">Contact &amp; Location</h4>
+        <div className="footer-col-rule" />
+        <ul className="footer-contact">
+          <li><a href="tel:+919686153413">+91 96861 53413</a></li>
+          <li><a href="mailto:care@windia.com">care@windia.com</a></li>
+          <li className="footer-address">
+            #1058/C, Basavanahalli Main Road,<br />
+            Belvadi Village, Ilavala Hobli,<br />
+            Mysuru – 570032, Karnataka
+          </li>
+        </ul>
+        <div className="footer-locate">
+
+          {/* ✅ Tap backdrop to close on mobile */}
+          {showQr && (
+            <div
+              style={{ position: 'fixed', inset: 0, zIndex: 98 }}
+              onClick={() => setShowQr(false)}
+            />
+          )}
+
+          <div
+  className="footer-qr-wrap"
+  onClick={() => {
+    if (window.innerWidth <= 768) {
+      setShowQr(prev => !prev)
+    }
+  }}
+>
+            <Image
+              src={qrCode}
+              alt="Scan to find WIN-DIA on Google Maps"
+              className="footer-qr"
+              width={62}
+              height={62}
+            />
+            <span className="footer-qr-label">Scan to locate us</span>
+
+            {/* ✅ Popup — hover on desktop, tap on mobile */}
+            <div className={`footer-qr-popup${showQr ? ' footer-qr-popup--visible' : ''}`}>
+              <Image
+                src={qrCode}
+                alt="WIN-DIA on Google Maps – scan to open"
+                width={180}
+                height={180}
+              />
+              <p className="footer-qr-popup-label">Scan to locate us</p>
             </div>
           </div>
 
-          <div className="footer-divider" />
-
-          <div className="footer-cols">
-            <div className="footer-col">
-              <h4 className="footer-col-title">Quick Links</h4>
-              <div className="footer-col-rule" />
-              <ul className="footer-links">
-                <li><Link href="/shop">Shop</Link></li>
-                <li><Link href="/our-story">Our Story</Link></li>
-                <li><Link href="/health-benefits">Health Benefits</Link></li>
-                <li><Link href="/contact">Contact</Link></li>
-                <li><Link href="/track-order">Track Order</Link></li>
-              </ul>
-            </div>
-
-            <div className="footer-col">
-              <h4 className="footer-col-title">Contact &amp; Location</h4>
-              <div className="footer-col-rule" />
-              <ul className="footer-contact">
-                <li><a href="tel:+919686153413">+91 96861 53413</a></li>
-                <li><a href="mailto:care@windia.com">care@windia.com</a></li>
-                <li className="footer-address">
-                  #1058/C, Basavanahalli Main Road,<br />
-                  Belvadi Village, Ilavala Hobli,<br />
-                  Mysuru – 570032, Karnataka
-                </li>
-              </ul>
-              <div className="footer-locate">
-                <div className="footer-qr-wrap">
-                  <Image src={qrCode} alt="Scan to find WIN-DIA on Google Maps" className="footer-qr" width={62} height={62} />
-                  <span className="footer-qr-label">Scan to locate us</span>
-                </div>
-                <a
-                  href="https://maps.google.com/?q=1058/C,Basavanahalli+Main+Road,Belvadi+Village,Ilavala+Hobli,Mysuru+570032"
-                  target="_blank" rel="noopener noreferrer" className="footer-map-btn"
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-                    <circle cx="12" cy="9" r="2.5"/>
-                  </svg>
-                  Open in Maps
-                </a>
-              </div>
-            </div>
-
-            <div className="footer-col">
-              <h4 className="footer-col-title">Certifications</h4>
-              <div className="footer-col-rule" />
-              <ul className="footer-certs">
-                <li><span className="cert-dot">✦</span> FSSAI Certified</li>
-                <li><span className="cert-dot">✦</span> NABL Lab Tested</li>
-                <li><span className="cert-dot">✦</span> DST-iTBI Supported</li>
-                <li><span className="cert-dot">✦</span> Startup Karnataka</li>
-                <li><span className="cert-dot">✦</span> PMFME Recognized</li>
-              </ul>
-            </div>
-          </div>
+          
+           <a href="https://maps.google.com/?q=1058/C,Basavanahalli+Main+Road,Belvadi+Village,Ilavala+Hobli,Mysuru+570032"
+            target="_blank" rel="noopener noreferrer" className="footer-map-btn"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            Open in Maps
+          </a>
         </div>
+      </div>
 
-        <div className="footer-bar">
-          <span>Made with love in Mysuru 🌿</span>
-        </div>
-      </footer>
+      <div className="footer-col">
+        <h4 className="footer-col-title">Certifications</h4>
+        <div className="footer-col-rule" />
+        <ul className="footer-certs">
+          <li><span className="cert-dot">✦</span> FSSAI Certified</li>
+          <li><span className="cert-dot">✦</span> NABL Lab Tested</li>
+          <li><span className="cert-dot">✦</span> DST-iTBI Supported</li>
+          <li><span className="cert-dot">✦</span> Startup Karnataka</li>
+          <li><span className="cert-dot">✦</span> PMFME Recognized</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div className="footer-bar">
+    <span>Made with love in Mysuru 🌿</span>
+  </div>
+</footer>
 
       {/* ── WHATSAPP BUTTON ── */}
       <div className="wa-wrapper">

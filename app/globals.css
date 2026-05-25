@@ -17,12 +17,12 @@ body {
 }
 
   main {
-  padding-top: 106px; 
+   padding-top: 72px; 
 }
 
 @media (max-width: 900px) {
   main {
-    padding-top: 96px; 
+    padding-top: 64px; 
   }
 }
 
@@ -77,7 +77,13 @@ padding: 0 2rem;
     border-bottom: 1px solid rgba(201,168,76,0.28);
     box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset,
                 0 2px 18px var(--ivory-shadow);
+  position: sticky;
+  transition: box-shadow 0.3s ease;
   }
+
+  nav.scrolled {
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+}
 
   nav .logo {
     display: flex;
@@ -106,8 +112,8 @@ padding: 0 2rem;
 
   .logo-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
-    font-weight: 500;
+    font-size: 30px;
+    font-weight: 800;
     letter-spacing: 0.14em;
     color: var(--text-primary);
     text-transform: uppercase;
@@ -132,7 +138,7 @@ padding: 0 2rem;
   .logo-tagline {
     font-family: 'Jost', sans-serif;
     font-size: 8px;
-    font-weight: 300;
+    font-weight: 600;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--text-secondary);
@@ -149,8 +155,8 @@ padding: 0 2rem;
 
   nav ul li a {
     font-family: 'Jost', sans-serif;
-    font-size: 10px;
-    font-weight: 400;
+    font-size: 11px;
+    font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--cocoa-mid);
@@ -306,8 +312,8 @@ padding: 0 2rem;
   ════════════════════════════════════════ */
   .ann-bar {
     width: 100%;
-    position: fixed;
-    top: 72px;
+    position: relative;
+    top: unset;
     left: 0;
     z-index: 101;
     height: 34px;
@@ -682,6 +688,66 @@ padding: 0 2rem;
     letter-spacing: 0.08em;
   }
 
+  .footer-qr-popup--visible {
+  opacity: 1 !important;
+  transform: translateX(-50%) scale(1) !important;
+  pointer-events: auto !important;
+}
+
+
+  /* ── QR hover zoom ── */
+.footer-qr-wrap {
+  position: relative;
+  cursor: pointer;
+}
+
+.footer-qr-wrap::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.footer-qr-popup {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.85);
+  transform-origin: bottom center;
+  background: var(--f-cream);
+  border: 1.5px solid var(--f-rule);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 100;
+}
+
+.footer-qr-wrap:hover .footer-qr-popup {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+
+.footer-qr-popup img {
+  width: 200px !important;
+  height: 200px !important;
+  border-radius: 4px;
+  display: block;
+}
+
+.footer-qr-popup-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--f-text-dim);
+  text-align: center;
+  margin-top: 8px;
+}
+
   /* ════════════════════════════════════════
      WHATSAPP BUTTON
   ════════════════════════════════════════ */
@@ -798,10 +864,10 @@ padding: 0 2rem;
       text-transform: uppercase;
     }
 
-    .ann-bar  { top: 64px; height: 32px; }
+    .ann-bar  { top: unset; height: 32px; }
     .ann-text { font-size: 9.5px; letter-spacing: 0.14em; }
-    .ann-slot { height: 28px; min-width: 220px; }
-    .ann-pip  { width: 4px; height: 4px; }
+    .ann-pips { display: none; }
+    .ann-slot { min-width: 160px;}
 
     .footer-cols { grid-template-columns: 1fr 1fr; gap: 36px; }
     .footer-top  { flex-direction: column; align-items: flex-start; }
@@ -825,3 +891,27 @@ padding: 0 2rem;
     .ann-slot { min-width: 180px; }
     .ann-dot  { display: none; }
   }
+
+
+@media (max-width: 768px) {
+  .footer-qr-popup {
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%) scale(0.85);
+    transform-origin: center center;
+  }
+
+  /* Disable hover on mobile */
+  .footer-qr-wrap:hover .footer-qr-popup {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Only show on tap */
+  .footer-qr-popup--visible {
+    opacity: 1 !important;
+    transform: translate(-50%, 50%) scale(1) !important;
+    pointer-events: auto !important;
+  }
+}
