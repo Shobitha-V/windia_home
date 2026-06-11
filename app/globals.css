@@ -62,10 +62,8 @@ body {
   ════════════════════════════════════════ */
   nav {
 padding: 0 2rem;
-  overflow: visible;
-
+    overflow: visible;
     background: var(--ivory-base);
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -77,8 +75,8 @@ padding: 0 2rem;
     border-bottom: 1px solid rgba(201,168,76,0.28);
     box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset,
                 0 2px 18px var(--ivory-shadow);
-  position: sticky;
-  transition: box-shadow 0.3s ease;
+    position: sticky;
+    transition: box-shadow 0.3s ease;
   }
 
   nav.scrolled {
@@ -94,13 +92,13 @@ padding: 0 2rem;
   }
 
   .logo-emblem {
-    height: 58px;
-    width: auto;
-    object-fit: contain;
-    mix-blend-mode: normal;
-    filter: none;
-    transition: height 0.35s ease;
-  }
+  height: 68px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: normal;
+  filter: none;
+  transition: height 0.35s ease, transform 0.3s ease;
+}
 
   nav.scrolled .logo-emblem { height: 46px; }
 
@@ -127,7 +125,7 @@ padding: 0 2rem;
 
   .logo-trademark {
     font-family: 'Jost', sans-serif;
-    font-size: 12px;
+    font-size: 22px;
     font-weight: 400;
     color: var(--cocoa-mid);
     opacity: 0.6;
@@ -181,8 +179,17 @@ padding: 0 2rem;
   nav ul li a:hover,
   nav ul li a.active { opacity: 1; color: var(--cocoa); }
 
-  nav ul li a:hover::after,
-  nav ul li a.active::after { width: 100%; }
+  nav ul li a:hover::after { width: 100%; }
+
+nav ul li a.active {
+  opacity: 1;
+  color: #1d1006;
+  background: #f2e3ce;
+  padding: 5px 14px;
+  border-radius: 10px;
+}
+
+nav ul li a.active::after { width: 0; }
 
   .nav-icons {
     display: flex;
@@ -211,6 +218,14 @@ padding: 0 2rem;
     color: var(--cocoa);
     transform: translateY(-1px);
   }
+
+  .nav-icon-btn.active {
+  background: #f0dfc8;
+  color: #3b1f0a;
+  border-radius: 20px;
+  padding: 6px 10px;
+
+}
 
   .cart-btn { position: relative; }
 
@@ -306,6 +321,14 @@ padding: 0 2rem;
   .mobile-search-close:hover { opacity: 1; color: var(--cocoa); }
 
   .bottom-nav { display: none; }
+
+  .nav-label-mobile  { display: none; }
+.nav-label-desktop { display: inline; }
+
+@media (max-width: 900px) {
+  .nav-label-mobile  { display: inline; }
+  .nav-label-desktop { display: none; }
+}
 
   /* ════════════════════════════════════════
      ANNOUNCEMENT BAR
@@ -462,6 +485,12 @@ padding: 0 2rem;
     padding-bottom: 36px;
   }
 
+.footer-qr-popup--visible {
+  opacity: 1 !important;
+  transform: translateX(-50%) scale(1) !important;
+  pointer-events: auto !important;
+}
+
   .footer-logo {
     font-family: 'Cormorant Garamond', serif;
     font-size: 52px;
@@ -498,7 +527,12 @@ padding: 0 2rem;
     max-width: 280px;
     font-weight: 300;
   }
-
+.footer-qr-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
   .footer-brand-right { text-align: right; flex-shrink: 0; }
 
   .footer-rule-v {
@@ -603,17 +637,11 @@ padding: 0 2rem;
   }
 
   .footer-locate {
+
     display: flex;
     align-items: center;
     gap: 18px;
     margin-top: 4px;
-  }
-
-  .footer-qr-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
   }
 
   .footer-qr {
@@ -688,11 +716,6 @@ padding: 0 2rem;
     letter-spacing: 0.08em;
   }
 
-  .footer-qr-popup--visible {
-  opacity: 1 !important;
-  transform: translateX(-50%) scale(1) !important;
-  pointer-events: auto !important;
-}
 
 
   /* ── QR hover zoom ── */
@@ -849,12 +872,19 @@ padding: 0 2rem;
       transition: color 0.25s, opacity 0.25s, transform 0.2s;
     }
 
-    .bottom-nav-item:hover,
-    .bottom-nav-item.active {
-      color: var(--cocoa);
-      opacity: 1;
-      transform: translateY(-2px);
-    }
+    .bottom-nav-item:hover {
+  color: var(--cocoa);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.bottom-nav-item.active {
+  color: #3b1f0a;
+  opacity: 1;
+  background: #f0dfc8;
+  border-radius: 12px;
+  padding: 4px 10px;
+}
 
     .bottom-nav-item span {
       font-family: 'Jost', sans-serif;
@@ -907,11 +937,17 @@ padding: 0 2rem;
     opacity: 0;
     pointer-events: none;
   }
-
-  /* Only show on tap */
-  .footer-qr-popup--visible {
-    opacity: 1 !important;
-    transform: translate(-50%, 50%) scale(1) !important;
-    pointer-events: auto !important;
-  }
 }
+
+nav .logo:hover .logo-emblem {
+  transform: rotate(8deg);
+  transition: transform 0.3s ease;
+}
+
+
+
+
+
+
+
+

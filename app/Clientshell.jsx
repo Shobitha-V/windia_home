@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import windialogo from './windia-logo.png'
 import qrCode from './qrCode.jpeg'
+import { usePathname } from 'next/navigation'
 
 /* ── Announcement messages ── */
 const annMessages = [
@@ -47,7 +48,7 @@ const bottomNavItems = [
     icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 3"/></svg>,
   },
   {
-    href: '/science', label: 'Health',
+    href: '/health-benefits', label: <><span className="nav-label-desktop">Health Benefits</span><span className="nav-label-mobile">Health</span></> ,
     icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>,
   },
   {
@@ -59,11 +60,11 @@ const bottomNavItems = [
 export default function ClientShell({ children }) {
   const [searchOpen,  setSearchOpen]  = useState(false)
   const [scrolled,    setScrolled]    = useState(false)
-  const [activeLink,  setActiveLink]  = useState('/')
   const [annCurrent,  setAnnCurrent]  = useState(0)
   const [annPhase,    setAnnPhase]    = useState('visible')
   const [showTooltip, setShowTooltip] = useState(false)
   const [showQr, setShowQr] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -120,7 +121,7 @@ export default function ClientShell({ children }) {
 
       {/* ── NAV ── */}
       <nav id="mainNav" className={scrolled ? 'scrolled' : ''}>
-        <Link href="/" className="logo" onClick={() => setActiveLink('/')}>
+        <Link href="/" className="logo">
           <Image src={windialogo} alt="WIN-DIA logo" className="logo-emblem" priority />
           <div className="logo-text-group">
             <div className="logo-name">
@@ -136,8 +137,7 @@ export default function ClientShell({ children }) {
             <li key={href}>
               <Link
                 href={href}
-                className={activeLink === href ? 'active' : ''}
-                onClick={() => setActiveLink(href)}
+                className={pathname === href ? 'active' : ''}
               >
                 {label}
               </Link>
@@ -150,7 +150,15 @@ export default function ClientShell({ children }) {
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(196,151,107,0.6)" strokeWidth="2">
               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
             </svg>
-            <input type="text" placeholder="Search Thins..." />
+            <input
+  type="text"
+  placeholder="Search Thins..."
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' && e.target.value.trim()) {
+      window.location.href = `/shop?q=${encodeURIComponent(e.target.value)}`
+    }
+  }}
+/>
           </div>
 
           <button className="nav-icon-btn mobile-search-btn" aria-label="Search" onClick={() => setSearchOpen(true)}>
@@ -159,13 +167,13 @@ export default function ClientShell({ children }) {
             </svg>
           </button>
 
-          <Link href="/wishlist" className="nav-icon-btn" aria-label="Wishlist">
+          <Link href="/wishlist" className={`nav-icon-btn${pathname === '/wishlist' ? ' active' : ''}`}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
             </svg>
           </Link>
 
-          <Link href="/cart" className="nav-icon-btn cart-btn" aria-label="Cart">
+          <Link href="/cart" className={`nav-icon-btn cart-btn${pathname === '/cart' ? ' active' : ''}`}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
               <line x1="3" y1="6" x2="21" y2="6"/>
@@ -173,7 +181,7 @@ export default function ClientShell({ children }) {
             </svg>
           </Link>
 
-          <Link href="/account" className="nav-icon-btn" aria-label="Account">
+          <Link href="/account" className={`nav-icon-btn${pathname === '/account' ? ' active' : ''}`}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
               <circle cx="12" cy="7" r="4"/>
@@ -189,7 +197,18 @@ export default function ClientShell({ children }) {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(196,151,107,0.6)" strokeWidth="1.5">
               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
             </svg>
-            <input type="text" placeholder="Search Thins..." className="mobile-search-input" autoFocus />
+            <input
+  type="text"
+  placeholder="Search Thins..."
+  className="mobile-search-input"
+  autoFocus
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' && e.target.value.trim()) {
+      setSearchOpen(false)
+      window.location.href = `/shop?q=${encodeURIComponent(e.target.value)}`
+    }
+  }}
+/>
             <button className="mobile-search-close" onClick={() => setSearchOpen(false)} aria-label="Close search">✕</button>
           </div>
         </div>
@@ -198,13 +217,11 @@ export default function ClientShell({ children }) {
       {/* ── MOBILE BOTTOM NAV ── */}
       <div className="bottom-nav">
         {bottomNavItems.map(({ href, label, icon }) => (
-          <Link
-            key={href}
-            href={href}
-            className={`bottom-nav-item${activeLink === href ? ' active' : ''}`}
-            onClick={() => setActiveLink(href)}
-          >
-            {icon}
+<Link
+  key={href}
+  href={href}
+  className={`bottom-nav-item${pathname === href ? ' active' : ''}`}
+>            {icon}
             <span>{label}</span>
           </Link>
         ))}

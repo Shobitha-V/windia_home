@@ -3,84 +3,75 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import './Home.css'
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion'
+import Image from 'next/image';
 
-import featuredBg from './featured-product-bg2.png'
-import woodBg from './bg-image-wood.avif'
+// ── Why Us — wood background
+import woodBg from './bg-image-wood.png'
 
-// WHY US — ping pong frames
-import frame1 from './1pr.png'
-import frame2 from './2pr.png'
-import frame3 from './3pr.png'
-import frame4 from './4pr.png'
-import frame5 from './5pr.png'
-import frame6 from './6pr.png'
-import frame7 from './7pr.png'
+// ── Why Us — 6 panel backgrounds
+import bgLowGi          from './low-gi.jpg'
+import bgHighFibre      from './high-fibre.png'
+import bgCholesterol    from './0-cholestrol.jpg'
+import bgNoMaida        from './no-maida.jpg'
+import bgNoPreservatives from './no-preservatives.png'
+import bgNoPalmOil      from './No-palmoil.png'
 
-// WHY US — mobile ping pong
-import prod1 from './5products1.png'
-import prod2 from './5product2.png'
-import prod3 from './5product3.png'
-import prod4 from './5product4.png'
-import prod5 from './5product5.png'
-import prod6 from './5product6.png'
-
-// Range Categories
+// ── Range Categories — peek images
 import jeeraImg from './jeera (2).png'
 import methiImg from './methi (2).png'
 
-// Featured Products
-import methiBase from './methi (2).png'
-import methiTilt from './methi tilt.png'
+// ── Featured Products — background
+import featProductBg from './feat-product-bg.jpg'
+
+// ── Featured Products — 4 frames per product (base / tilt / opening / open)
+import methiBase    from './methi (2).png'
+import methiTilt    from './methi tilt.png'
 import methiOpening from './methi opening.png'
-import methiOpen from './methi open.png'
-import jeeraBase from './jeera (2).png'
-import jeeraTilt from './jeera tilt.png'
+import methiOpen    from './methi open.png'
+
+import jeeraBase    from './jeera (2).png'
+import jeeraTilt    from './jeera tilt.png'
 import jeeraOpening from './jeera opening.png'
-import jeeraOpen from './jeera open.png'
-import curryBase from './curry leaves (2).png'
-import curryTilt from './curry leaf tilt.png'
+import jeeraOpen    from './jeera open.png'
+
+import curryBase    from './curry leaves (2).png'
+import curryTilt    from './curry leaf tilt.png'
 import curryOpening from './curry leaf opening.png'
-import curryOpen from './curry leaf open.png'
-import garlicBase from './garlic (2).png'
-import garlicTilt from './garlic tilt.png'
+import curryOpen    from './curry leaf open.png'
+
+import garlicBase    from './garlic (2).png'
+import garlicTilt    from './garlic tilt.png'
 import garlicOpening from './garlic opening.png'
-import garlicOpen from './garlic open.png'
+import garlicOpen    from './garlic open.png'
 
-// Recognition backgrounds
-import recBg1 from './Hero-bg2.png'
-import recBg2 from './product-hero-1.png'
-import recBg3 from './crisp-closeup.png'
-import recBg4 from './serving-plate.png'
-import recBg5 from './family-snack.png'
-import recBg6 from './ig4.png'
+import recognition1 from './recognition-1.jpeg';
+import recognition2 from './recognition-2.jpeg';
+import recognition3 from './recognition-3.jpeg';
+import recognition4 from './recognition-4.jpeg';
+import recognition5 from './recognition-5.jpeg';
+import recognition6 from './recognition-6.jpeg';
 
-// Recognition images
-import rec1 from './recognition-1.jpeg'
-import rec2 from './recognition-2.jpeg'
-import rec3 from './recognition-3.jpeg'
-import rec4 from './recognition-4.jpeg'
-import rec5 from './recognition-5.jpeg'
-import rec6 from './recognition-6.jpeg'
+import heroBg2 from './Hero-bg2.png';
+import productHero1 from './product-hero-1.png';
+import crispCloseup from './crisp-closeup.png';
+import servingPlate from './serving-plate.png';
+import familySnack from './family-snack.png';
+import ig4 from './ig4.png';
 
-// Founders
-import founderTejaswini from './founder-tejaswini.jpeg'
-import founderSridhar from './founder-sridhar.jpeg'
+import founderTejaswini from './founder-tejaswini.jpeg';
+import founderSridhar from './founder-sridhar.jpeg';
 
-// Community carousel
-import crisps from './crisp-closeup.png'
-import familySnack from './family-snack.png'
-import productHero from './product-hero-1.png'
-import servingPlate from './serving-plate.png'
-import ig4 from './ig4.png'
-import heroBg2 from './Hero-bg2.png'
 
-// Community video section background
+import story1 from './story1.jpeg'
+import story5 from './story5.jpeg'
 import videoBg from './video-bg.png'
 
 
-const WHYUS_FRAMES = [frame1, frame2, frame3, frame4, frame5, frame6, frame7, frame6, frame5, frame4, frame3, frame2]
-const PRODUCT_FRAMES = [prod1, prod2, prod3, prod4, prod5, prod6]
+function SafeImage({ src, alt, ...props }) {
+  return <Image src={src} alt={alt} {...props} />;
+}
+
 
 /* ============================================================
    HERO
@@ -170,7 +161,7 @@ useEffect(() => {
 
   return (
     <section className="hero" style={{ '--hero-bg': slide.bg, '--hero-accent': slide.accent }}>
-      {/* Progress bar */}
+      {/* Progress bar */} 
       <div className="hero-progress">
         <div className="hero-progress-fill" style={{ width: `${progress}%` }} />
       </div>
@@ -230,7 +221,7 @@ useEffect(() => {
           <span className="stat-label">Protein</span>
         </div>
       </div>
-      <a href="#shop" className="hero-cta" onClick={(e) => e.stopPropagation()}>Shop Now</a>
+      <Link href="/shop" className="hero-cta" onClick={(e) => e.stopPropagation()}>Shop Now</Link>
     </div>
 
 
@@ -271,7 +262,7 @@ useEffect(() => {
               </h1>
               <div className="hero-badge-pill">{slide.badge}</div>
               <div className="hero-actions">
-                <a href="#shop" className="hero-cta">Shop Now</a>
+                <Link href="/shop" className="hero-cta">Shop Now</Link>
                 
               </div>
             </div>
@@ -324,18 +315,384 @@ useEffect(() => {
 
 
 /* ============================================================
+   SECTION 1 — WHY US BANNER
+   ============================================================ */
+
+const WHY_PANELS = [
+  {
+    label: 'Low GI',
+    tagline: 'No sugar spikes.',
+    desc: 'A GI of 44 means no sugar spikes, no crashes. Just steady, sustained energy from the first bite to the last.',
+    bg: bgLowGi.src,
+    color: '#14243a',
+  },
+  {
+    label: 'High Fibre',
+    tagline: 'Fuel your gut.',
+    desc: 'Packed with natural dietary fibre to keep you fuller for longer, support gut health and fuel your day the wholesome way.',
+    bg: bgHighFibre.src,
+    color: '#dca1e8',
+  },
+  {
+    label: '0% Cholesterol',
+    tagline: 'Heart-friendly.',
+    desc: 'Every ingredient earns its place. Our snacks are completely free from cholesterol.',
+    bg: bgCholesterol.src,
+    color: '#8a4cf4',
+  },
+  {
+    label: 'No Maida',
+    tagline: 'Real grains only.',
+    desc: 'No refined flour, ever. We use coconut flour and wholesome grains so every crisp is light, digestible and genuinely nourishing.',
+    bg: bgNoMaida.src,
+    color: '#797977',
+  },
+  {
+    label: 'No Preservatives',
+    tagline: 'Nothing artificial.',
+    desc: 'Nothing hidden. Nothing artificial. Just honest, clean food the way it should be.',
+    bg: bgNoPreservatives.src,
+    color: '#0d55ad',
+  },
+  {
+    label: 'No Palm Oil',
+    tagline: 'Cleaner crunch.',
+    desc: 'Crisp, satisfying snacks made without palm oil, keeping every bite simple and thoughtfully made.',
+    bg: bgNoPalmOil.src,
+    color: '#ffc058',
+  },
+]
+
+function WhyUsBanner() {
+  const whyUsRef = useRef(null)
+  const [chipsVisible, setChipsVisible] = useState(false)
+  const [activeChip, setActiveChip] = useState(null)
+
+  useEffect(() => {
+    const section = whyUsRef.current
+    if (!section) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setChipsVisible(true)
+        else setChipsVisible(false)
+      },
+      { threshold: 0.1 }
+    )
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <section className="why-us-banner" ref={whyUsRef}>
+      {/* Wood background */}
+      <div
+        className="why-us-wood-bg"
+        style={{ backgroundImage: `url(${woodBg.src})` }}
+      />
+
+      {/* 6 feature panels */}
+      <div className="why-panels-strip">
+        {WHY_PANELS.map((p, i) => (
+          <motion.div
+            key={p.label}
+            className={`why-panel why-panel--${i + 1}${activeChip === i ? ' why-panel--active' : ''}`}
+            style={{ backgroundImage: `url(${p.bg})`, '--panel-color': p.color }}
+            initial={{ opacity: 0 }}
+            animate={chipsVisible ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.06 }}
+            onMouseEnter={() => {
+              if (window.matchMedia('(hover: hover) and (pointer: fine)').matches)
+                setActiveChip(i)
+            }}
+            onMouseLeave={() => {
+              if (window.matchMedia('(hover: hover) and (pointer: fine)').matches)
+                setActiveChip(null)
+            }}
+            onFocus={() => setActiveChip(i)}
+            onBlur={() => setActiveChip(null)}
+            onClick={(e) => {
+              e.preventDefault()
+              setActiveChip(prev => (prev === i ? null : i))
+            }}
+            tabIndex={0}
+            role="button"
+            aria-expanded={activeChip === i}
+          >
+            <div className="why-panel-dim" />
+            <div className="why-panel-content">
+              <span className="why-panel-label">{p.label}</span>
+              <span className="why-panel-tagline">{p.tagline}</span>
+              <p className="why-panel-desc">{p.desc}</p>
+              <Link
+                href="/health-benefits"
+                className="why-panel-know-more"
+                onClick={e => e.stopPropagation()}
+              >
+                Know More
+              </Link>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+
+/* ============================================================
+   SECTION 2 — RANGE CATEGORIES
+   ============================================================ */
+
+function RangeCategories() {
+  return (
+    <section className="products" id="shop">
+      <div className="products-split">
+
+        {/* LEFT — Everyday Classics Range */}
+        <div className="products-split-left">
+          <img
+            src={jeeraImg.src}
+            alt="Jeera"
+            className="products-peek products-peek-left"
+          />
+          <div className="products-split-content products-split-content--left">
+            <div className="products-split-top">
+              <div className="products-split-eyebrow">Crafted from Tradition</div>
+              <h2 className="products-split-title">
+                <em>Everyday Classics</em><br />Range
+              </h2>
+            </div>
+            <div className="products-split-bottom">
+              <p className="products-split-desc">
+                Wholesome ingredients, authentic flavors, and satisfying crunch for daily enjoyment.
+              </p>
+              <a href="/shop?range=regular" className="products-range-btn">
+                Explore Classics Range →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT — Gluten-Free Range */}
+        <div className="products-split-right">
+          <img
+            src={methiImg.src}
+            alt="Methi"
+            className="products-peek products-peek-right"
+          />
+          <div className="products-split-content products-split-content--right">
+            <div className="products-split-top">
+              <div className="products-split-eyebrow">Made for Mindful Snacking</div>
+              <h2 className="products-split-title">
+                <em>Gluten-Free</em><br />Range
+              </h2>
+            </div>
+            <div className="products-split-bottom">
+              <p className="products-split-desc">
+                Lighter, easy-to-digest options without compromising on taste and crunch.
+              </p>
+              <a href="/shop?range=gluten-free" className="products-range-btn">
+                Explore Gluten-Free Range →
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  )
+}
+
+
+
+/* ============================================================
+   SECTION 3 — FEATURED PRODUCTS
+   ============================================================ */
+
+const FEATURED_PRODUCTS = [
+  {
+    base: methiBase.src,
+    tilt: methiTilt.src,
+    opening: methiOpening.src,
+    open: methiOpen.src,
+    name: 'Methi Thins',
+    price: '₹220',
+  },
+  {
+    base: jeeraBase.src,
+    tilt: jeeraTilt.src,
+    opening: jeeraOpening.src,
+    open: jeeraOpen.src,
+    name: 'Jeera Thins',
+    price: '₹180',
+  },
+  {
+    base: curryBase.src,
+    tilt: curryTilt.src,
+    opening: curryOpening.src,
+    open: curryOpen.src,
+    name: 'Curry Leaf Thins',
+    price: '₹180',
+  },
+  {
+    base: garlicBase.src,
+    tilt: garlicTilt.src,
+    opening: garlicOpening.src,
+    open: garlicOpen.src,
+    name: 'Garlic Thins',
+    price: '₹200',
+  },
+]
+
+function FeaturedProducts() {
+  const [activeProduct, setActiveProduct] = useState(null)
+  const [productFrame, setProductFrame] = useState({}) // { [idx]: 'base'|'tilt'|'opening'|'open' }
+  const productTimers = useRef({})
+
+  const activateProduct = (i) => {
+    clearTimeout(productTimers.current[i])
+    setProductFrame(f => ({ ...f, [i]: 'tilt' }))
+    productTimers.current[i] = setTimeout(() => {
+      setProductFrame(f => ({ ...f, [i]: 'opening' }))
+      productTimers.current[i] = setTimeout(() => {
+        setProductFrame(f => ({ ...f, [i]: 'open' }))
+      }, 600)
+    }, 600)
+  }
+
+  const deactivateProduct = (i) => {
+    clearTimeout(productTimers.current[i])
+    setProductFrame(f => ({ ...f, [i]: 'base' }))
+    setActiveProduct(null)
+  }
+
+  return (
+    <section
+      className="recipes-banner"
+      id="recipes"
+      style={{
+        backgroundImage: `url(${featProductBg.src})`,
+        backgroundRepeat: 'repeat',
+        backgroundSize: 'auto',
+      }}
+      onClick={() => {
+        Object.keys(productTimers.current).forEach(k => clearTimeout(productTimers.current[k]))
+        setProductFrame({})
+        setActiveProduct(null)
+      }}
+    >
+      {/* Title */}
+      <div className="featured-eyebrow">OUR FEATURED PRODUCTS</div>
+
+      {/* Product grid */}
+      <div className="featured-grid">
+        {FEATURED_PRODUCTS.map((p, i) => {
+          const frame = productFrame[i] || 'base'
+          const src = p[frame]
+          return (
+            <div
+              key={i}
+              className="featured-item"
+              onMouseEnter={() => { setActiveProduct(i); activateProduct(i) }}
+              onMouseLeave={() => deactivateProduct(i)}
+              onClick={(e) => {
+                e.stopPropagation()
+                if (activeProduct === i) deactivateProduct(i)
+                else { setActiveProduct(i); activateProduct(i) }
+              }}
+            >
+              <div className="featured-img-wrap">
+                <img src={src} alt={p.name} className="featured-frame" />
+              </div>
+              <div className="featured-info">
+                <div className="featured-name">{p.name}</div>
+                <div className="featured-price">
+                  {p.price} <span>/ 250g</span>
+                </div>
+                <Link
+                  href="/shop"
+                  className="featured-add"
+                  onClick={e => e.stopPropagation()}
+                >
+                  Add to Cart
+                </Link>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Explore CTA */}
+      <div className="featured-explore-wrap">
+        <div className="featured-explore-rule">
+          <span className="featured-explore-line" />
+          <span className="featured-explore-glitter">✦ ✦ ✦</span>
+          <span className="featured-explore-line" />
+        </div>
+        <Link href="/shop" className="featured-explore-cta">
+          <span className="featured-explore-label">Explore Our Full Collection</span>
+          <span className="featured-explore-arrow">→</span>
+        </Link>
+      </div>
+    </section>
+  )
+}
+
+
+/* ============================================================
    TESTIMONIALS
    ============================================================ */
 const reviews = [
-  { stars: 5, quote: "I bought these for healthier snacking, but they've become a small ritual in our home. Every evening tea now feels incomplete without them.",                           author: "Priya Mehta",    location: "Bengaluru", product: "Garlic Thins"  },
-  { stars: 5, quote: "Finding something wholesome that my whole family enjoys is rare. These crisps somehow bring together flavour, tradition, and comfort in every bite.",                author: "Anjali Rao",     location: "Mysuru",    product: "Moringa Thins" },
-  { stars: 5, quote: "The first bite reminded me of homemade snacks we grew up with. It feels comforting to find something traditional that fits today's lifestyle.",                      author: "Rohit",          location: "Bangalore", product: "Methi Thins"   },
-  { stars: 5, quote: "What started as curiosity turned into a pantry essential. They've become my go-to for busy days, quiet evenings, and everything in between.",                        author: "Meera Krishnan", location: "Chennai",   product: "Curry Thins"   },
-  { stars: 5, quote: "Some snacks satisfy cravings. These feel different — wholesome, familiar, and made with care you can actually taste.",                                               author: "Nisha Patel",    location: "Hyderabad", product: "Methi Thins"   },
+  { rating: 5.0, quote: "I bought these for healthier snacking, but they've become a small ritual in our home. Every evening tea now feels incomplete without them. The jeera flavour especially has this warmth that just feels like home.", author: "Priya Mehta", location: "Bengaluru", product: "Garlic Thins" },
+  
+  { rating: 4.7, quote: "Finding something wholesome that my whole family enjoys is rare. These crisps somehow bring together flavour, tradition, and comfort in every bite. My kids ask for them after school and my parents love them with chai.", author: "Anjali Rao", location: "Mysuru", product: "Moringa Thins" },
+  
+  { rating: 4.5, quote: "The first bite reminded me of homemade snacks we grew up with. It feels comforting to find something traditional that fits today's lifestyle. I've tried nearly every flavour now and honestly can't pick a favourite.", author: "Rohit", location: "Bangalore", product: "Methi Thins" },
+  
+  { rating: 4.8, quote: "What started as curiosity turned into a pantry essential. They've become my go-to for busy days, quiet evenings, and everything in between. I love that I don't feel guilty reaching for a second handful.", author: "Meera Krishnan", location: "Chennai", product: "Curry Thins" },
+  
+  { rating: 4.3, quote: "Some snacks satisfy cravings. These feel different — wholesome, familiar, and made with care you can actually taste. I ordered once thinking I'd try it out, and within a week I was placing my second order.", author: "Nisha Patel", location: "Hyderabad", product: "Methi Thins" },
 ]
-
 const TERRACOTTA = '#E2703A'
 const LIGHT      = '#F5EDE6'
+
+function StarRating({ rating, isActive }) {
+  const full = Math.floor(rating)
+  const partial = Math.round((rating - full) * 10) / 10
+  const empty = 5 - full - (partial > 0 ? 1 : 0)
+
+  const starColor = isActive ? '#FFE4C4' : '#E8956D'
+  const glowColor = isActive ? 'rgba(255, 228, 196, 0.7)' : 'rgba(226, 112, 58, 0.6)'
+  const emptyColor = isActive ? 'rgba(255,255,255,0.2)' : 'rgba(180,100,60,0.25)'
+  const id = `partial-${Math.round(rating * 10)}`
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '3px', filter: `drop-shadow(0 0 4px ${glowColor})` }}>
+      {[...Array(full)].map((_, i) => (
+        <svg key={`f${i}`} width="16" height="16" viewBox="0 0 24 24" fill={starColor}>
+          <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+        </svg>
+      ))}
+      {partial > 0 && (
+        <svg key="p" width="16" height="16" viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id={id} x1="0" y1="0" x2="1" y2="0">
+              <stop offset={`${partial * 100}%`} stopColor={starColor}/>
+              <stop offset={`${partial * 100}%`} stopColor={emptyColor}/>
+            </linearGradient>
+          </defs>
+          <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill={`url(#${id})`}/>
+        </svg>
+      )}
+      {[...Array(empty)].map((_, i) => (
+        <svg key={`e${i}`} width="16" height="16" viewBox="0 0 24 24" fill={emptyColor}>
+          <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+        </svg>
+      ))}
+      <span style={{ fontSize: '12px', marginLeft: '5px', opacity: 0.85, color: starColor }}>{rating.toFixed(1)}</span>
+    </div>
+  )
+}
 
 function getPosition(index, current, total) {
   let diff = index - current
@@ -351,14 +708,14 @@ function getPosition(index, current, total) {
 
 function Testimonials() {
   const [current, setCurrent] = useState(0)
-  const [displayed, setDisplayed] = useState(0)  // ✅ delayed class switch
+  const [displayed, setDisplayed] = useState(0) 
   const startXRef = useRef(null)
   const autoRef = useRef(null)
 
  const next = () => {
   setCurrent(c => {
     const n = (c + 1) % reviews.length
-    requestAnimationFrame(() => {           // ✅ wait for DOM paint
+    requestAnimationFrame(() => {          
       setTimeout(() => setDisplayed(n), 50)
     })
     return n
@@ -368,7 +725,7 @@ function Testimonials() {
 const prev = () => {
   setCurrent(c => {
     const n = (c - 1 + reviews.length) % reviews.length
-    requestAnimationFrame(() => {           // ✅ wait for DOM paint
+    requestAnimationFrame(() => {          
       setTimeout(() => setDisplayed(n), 50)
     })
     return n
@@ -383,7 +740,7 @@ const prev = () => {
   const stopAuto = () => clearInterval(autoRef.current)
 
   useEffect(() => {
-    autoRef.current = setInterval(next, 3000)
+    autoRef.current = setInterval(next, 4000)
     return () => clearInterval(autoRef.current)
   }, [])
 
@@ -435,8 +792,7 @@ const prev = () => {
                 }}
               >
                 <div className="tc-card__top">
-                  <div className="tc-card__stars">{'★'.repeat(review.stars)}</div>
-                  <span className="tc-card__quote-mark">"</span>
+                  <StarRating rating={review.rating} isActive={i === displayed} />
                   <p className="tc-card__quote">{review.quote}</p>
                 </div>
                 <div className="tc-card__bottom">
@@ -468,808 +824,581 @@ const prev = () => {
   )
 }
 
-
 /* ============================================================
-   EXPORT
+   RECOGNITION
    ============================================================ */
-export default function HomeSections() {
 
-  // ─────────────────────────────────────────────
-// BLOCK 1: WHY US — State, Refs, Logic
-// Paste these inside your HomePage() function, before return()
-// ─────────────────────────────────────────────
+  const recognitions = [
+  { title: 'Karnataka Startup Recognized', subtitle: 'Startup Karnataka Initiative', description: 'Kalpavristi Coco Foods Pvt. Ltd. is officially recognized under the Karnataka Government\'s Startup initiative. This recognition by the Karnataka Startup Cell provides access to fiscal incentives, funding support, mentorship, and market development resources — validating Win-Dia as an innovative food-tech venture from Karnataka.', image: recognition1.src, bgImage: heroBg2.src , blogUrl: 'https://www.instagram.com/kalpavristi_coco_fab', organization: 'Startup Karnataka — Govt. of Karnataka' },
+  { title: 'Fibre Innovation', subtitle: 'Coconut Flour Crafted', description: "Recognized for pioneering innovation in high-fibre snacking. Our unique coconut flour formulation addresses the modern diet's fibre gap, creating a new category in healthy snacking.", image: recognition2.src , bgImage: productHero1.src, blogUrl: 'https://www.instagram.com/kalpavristi_coco_fab', organization: 'Food Innovation Awards' },
+  { title: 'Clean Ingredients', subtitle: 'Thoughtfully Made', description: 'Awarded for our commitment to clean, transparent ingredient sourcing. Every Win-Dia product is crafted with carefully selected natural ingredients, free from artificial additives and preservatives.', image: recognition3.src, bgImage: crispCloseup.src , blogUrl: 'https://www.instagram.com/kalpavristi_coco_fab', organization: 'Clean Label Initiative' },
+  { title: 'Trusted Manufacturing', subtitle: 'Premium Quality', description: 'Certified for excellence in manufacturing practices. Our state-of-the-art facility maintains the highest standards of hygiene, quality control, and sustainable production methods.', image: recognition4.src, bgImage: servingPlate.src , blogUrl: 'https://www.instagram.com/kalpavristi_coco_fab', organization: 'Quality Assurance Board' },
+  { title: 'Gluten-Free Range', subtitle: 'Better Everyday Choice', description: 'Recognized for creating accessible gluten-free options without compromising on taste. Our range supports dietary needs while delivering the satisfaction of traditional snacking.', image: recognition5.src, bgImage: familySnack.src, blogUrl: 'https://www.instagram.com/kalpavristi_coco_fab', organization: 'Celiac Foundation' },
+  { title: 'Modern Snacking', subtitle: 'High Fibre Focus', description: 'Honored for redefining modern snacking with a focus on gut health and wellness. Win-Dia bridges the gap between indulgence and nutrition, making healthy choices effortless.', image: recognition6.src, bgImage: ig4.src, blogUrl: 'https://www.instagram.com/kalpavristi_coco_fab', organization: 'Health Today Magazine' },
+];
 
-// Refs
-const whyUsRef = useRef(null);
-const prTimerRef = useRef(null);
-const chipTimerRef = useRef(null);
-const whyGifTimer = useRef(null);
-const whyImgTimer = useRef(null);
 
-// State
-const [whyUsPhase, setWhyUsPhase] = useState('hidden');
-const [chipsVisible, setChipsVisible] = useState(false);
-const [prIndex, setPrIndex] = useState(1);
-const [activeChip, setActiveChip] = useState(null);
+  function RecognitionSection (){
 
-// Desktop gif ping-pong frames
-const [whyGifIdx, setWhyGifIdx] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef(null);
+  const animationFrameRef = useRef(null);
+  const targetScrollRef = useRef(0);
+  const currentScrollRef = useRef(0);
 
-// Mobile ping-pong frames
-const pingPongSeq = [...PRODUCT_FRAMES, ...[...PRODUCT_FRAMES].slice(1, -1).reverse()];
-const [whyImgIdx, setWhyImgIdx] = useState(0);
+  useEffect(() => { setIsMounted(true); }, []);
 
-// Scroll-triggered animation for WHY US section
-useEffect(() => {
-  const section = whyUsRef.current;
-  if (!section) return;
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
 
-  const startCycle = () => {
-    let idx = 1;
-    setPrIndex(1);
-    prTimerRef.current = setInterval(() => {
-      idx = idx >= 10 ? 1 : idx + 1;
-      setPrIndex(idx);
-    }, 800);
-  };
-
-  const stopCycle = () => {
-    clearInterval(prTimerRef.current);
-    clearTimeout(chipTimerRef.current);
-    setPrIndex(1);
-  };
-
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        setChipsVisible(false);
-        setWhyUsPhase('big');
-        startCycle();
-        chipTimerRef.current = setTimeout(() => {
-          setWhyUsPhase('small');
-          setTimeout(() => setChipsVisible(true), 300);
-        }, 600);
-      } else {
-        setWhyUsPhase('hidden');
-        setChipsVisible(false);
-        stopCycle();
+  useEffect(() => {
+    if (!isMounted) return;
+    const animate = () => {
+      if (!scrollContainerRef.current || isScrollingRef.current) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+        return;
       }
-    },
-    { threshold: 0.1 }
-  );
-  observer.observe(section);
-  return () => {
-    observer.disconnect();
-    clearInterval(prTimerRef.current);
-    clearTimeout(chipTimerRef.current);
+      const diff = targetScrollRef.current - currentScrollRef.current;
+      currentScrollRef.current += diff * 0.07;
+      scrollContainerRef.current.scrollLeft = currentScrollRef.current;
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+    animationFrameRef.current = requestAnimationFrame(animate);
+    return () => { if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current); };
+  }, [isMounted]);
+
+  // Detect which card is most centered during scroll → update content + pause RAF
+  useEffect(() => {
+    if (!isMounted) return;
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const onScroll = () => {
+      // Pause RAF so touchpad/touch doesn't shake
+      isScrollingRef.current = true;
+      currentScrollRef.current = container.scrollLeft;
+      targetScrollRef.current = container.scrollLeft;
+      clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 150);
+
+      // Update active index to closest card to center
+      const cards = container.querySelectorAll('.rec-card-btn');
+      if (!cards.length) return;
+      const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+      let closest = 0;
+      let minDist = Infinity;
+      cards.forEach((card, i) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const dist = Math.abs(cardCenter - containerCenter);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      setActiveIndex(closest);
+    };
+
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => container.removeEventListener('scroll', onScroll);
+  }, [isMounted]);
+
+  // Scroll cards to center the active card
+  const scrollToCard = (index) => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    const cards = container.querySelectorAll('.rec-card-btn');
+    if (!cards[index]) return;
+    const card = cards[index];
+    const cardLeft = card.offsetLeft;
+    const cardWidth = card.offsetWidth;
+    const containerWidth = container.offsetWidth;
+    targetScrollRef.current = cardLeft - (containerWidth / 2) + (cardWidth / 2);
   };
-}, []);
 
-// Desktop gif timer
-useEffect(() => {
-  whyGifTimer.current = setInterval(() => {
-    setWhyGifIdx(prev => (prev + 1) % WHYUS_FRAMES.length);
-  }, 500);
-  return () => clearInterval(whyGifTimer.current);
-}, []);
-
-// Mobile ping-pong timer
-useEffect(() => {
-  whyImgTimer.current = setInterval(() => {
-    setWhyImgIdx(prev => (prev + 1) % pingPongSeq.length);
-  }, 300);
-  return () => clearInterval(whyImgTimer.current);
-}, []);
-
-// ─────────────────────────────────────────────
-// BLOCK 3: FEATURED PRODUCTS — State, Refs, Logic
-// Paste these inside your HomePage() function, before return()
-// ─────────────────────────────────────────────
-
-const [activeProduct, setActiveProduct] = useState(null);
-const [productFrame, setProductFrame] = useState({}); // { [idx]: 'base'|'tilt'|'opening'|'open' }
-const productTimers = useRef({});
-
-const activateProduct = (i) => {
-  clearTimeout(productTimers.current[i]);
-  setProductFrame(f => ({ ...f, [i]: 'tilt' }));
-  productTimers.current[i] = setTimeout(() => {
-    setProductFrame(f => ({ ...f, [i]: 'opening' }));
-    productTimers.current[i] = setTimeout(() => {
-      setProductFrame(f => ({ ...f, [i]: 'open' }));
-    }, 600);
-  }, 600);
-};
-
-const deactivateProduct = (i) => {
-  clearTimeout(productTimers.current[i]);
-  setProductFrame(f => ({ ...f, [i]: 'base' }));
-  setActiveProduct(null);
-};
-
-
-{/* ════════════════════════════════════════════════
-    BLOCK 1: RECOGNITION SECTION — State & Logic
-    Paste this inside your HomePage function, before return()
-    Also add these imports at the top of your file:
-      import { useState, useEffect, useRef } from 'react';
-      import { motion } from 'framer-motion';
-════════════════════════════════════════════════ */}
-
-const [recognitionActiveIndex, setRecognitionActiveIndex] = useState(0);
-const recognitionScrollRef = useRef(null);
-const recognitionAnimFrameRef = useRef(null);
-const recognitionTargetScrollRef = useRef(0);
-const recognitionCurrentScrollRef = useRef(0);
-
-const recognitions = [
-  { title: "Export Ready", subtitle: "Global Quality Standards", description: "Win-Dia has achieved international export certification, meeting stringent global quality standards. Our coconut flour-based snacks are now trusted across borders, bringing healthy snacking to international markets.", image: rec1.src, bgImage: recBg1.src, blogUrl: "#", organization: "Export Council of India" },
-  { title: "Fibre Innovation", subtitle: "Coconut Flour Crafted", description: "Recognized for pioneering innovation in high-fibre snacking. Our unique coconut flour formulation addresses the modern diet's fibre gap, creating a new category in healthy snacking.", image: rec2.src, bgImage: recBg2.src, blogUrl: "#", organization: "Food Innovation Awards" },
-  { title: "Clean Ingredients", subtitle: "Thoughtfully Made", description: "Awarded for our commitment to clean, transparent ingredient sourcing. Every Win-Dia product is crafted with carefully selected natural ingredients, free from artificial additives and preservatives.", image: rec3.src, bgImage: recBg3.src, blogUrl: "#", organization: "Clean Label Initiative" },
-  { title: "Trusted Manufacturing", subtitle: "Premium Quality", description: "Certified for excellence in manufacturing practices. Our state-of-the-art facility maintains the highest standards of hygiene, quality control, and sustainable production methods.", image: rec4.src, bgImage: recBg4.src, blogUrl: "#", organization: "Quality Assurance Board" },
-  { title: "Gluten-Free Range", subtitle: "Better Everyday Choice", description: "Recognized for creating accessible gluten-free options without compromising on taste. Our range supports dietary needs while delivering the satisfaction of traditional snacking.", image: rec5.src, bgImage: recBg5.src, blogUrl: "#", organization: "Celiac Foundation" },
-  { title: "Modern Snacking", subtitle: "High Fibre Focus", description: "Honored for redefining modern snacking with a focus on gut health and wellness. Win-Dia bridges the gap between indulgence and nutrition, making healthy choices effortless.", image: rec6.src, bgImage: recBg6.src, blogUrl: "#", organization: "Health Today Magazine" },
-]
-
-useEffect(() => {
-  const animate = () => {
-    if (!recognitionScrollRef.current) return;
-    const diff = recognitionTargetScrollRef.current - recognitionCurrentScrollRef.current;
-    recognitionCurrentScrollRef.current += diff * 0.12;
-    recognitionScrollRef.current.scrollLeft = recognitionCurrentScrollRef.current;
-    recognitionAnimFrameRef.current = requestAnimationFrame(animate);
+  // When dot clicked — update content AND scroll cards
+  const handleDotClick = (index) => {
+    setActiveIndex(index);
+    scrollToCard(index);
   };
-  recognitionAnimFrameRef.current = requestAnimationFrame(animate);
-  return () => { if (recognitionAnimFrameRef.current) cancelAnimationFrame(recognitionAnimFrameRef.current); };
-}, []);
 
-const handleRecognitionMouseMove = (e) => {
-  if (!recognitionScrollRef.current) return;
-  const container = recognitionScrollRef.current;
-  const rect = container.getBoundingClientRect();
-  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-  recognitionTargetScrollRef.current = pct * (container.scrollWidth - rect.width);
-};
-
-const activeRecognition = recognitions[recognitionActiveIndex];
-
-
-{/* ════════════════════════════════════════════════
-    BLOCK 3: COMMUNITY SECTION — State & Logic
-    Paste this inside your HomePage function, before return()
-    Add these imports at the top of your file:
-      import { useState, useEffect } from 'react';
-      import { motion } from 'framer-motion';
-════════════════════════════════════════════════ */}
-
-const communitySlides = [
-  { src: crisps.src, alt: 'Crispy Win-Dia Thins' },
-  { src: familySnack.src, alt: 'Family Snacking Moment' },
-  { src: productHero.src, alt: 'Win-Dia Product Hero' },
-  { src: servingPlate.src, alt: 'Serving Plate Presentation' },
-  { src: ig4.src, alt: 'Community Moment' },
-  { src: heroBg2.src, alt: 'Hero Background' },
-]
-
-const [communityRotation, setCommunityRotation] = useState(0);
-
-useEffect(() => {
-  const interval = setInterval(() => {
-    setCommunityRotation((prev) => prev + 0.3);
-  }, 16);
-  return () => clearInterval(interval);
-}, []);
-
-const getCommunityImageStyle = (index) => {
-  const anglePerImage = 360 / communitySlides.length;
-  const currentAngle = communityRotation + (index * anglePerImage);
-  const radius = 220;
-  const radian = (currentAngle * Math.PI) / 180;
-  const x = Math.sin(radian) * radius;
-  const z = Math.cos(radian) * radius;
-  const y = Math.sin(radian * 2) * 15;
-  const scale = (z + radius) / (radius * 2) * 0.4 + 0.5;
-  const opacity = (z + radius) / (radius * 2) * 0.6 + 0.4;
-  const rotateY = -currentAngle;
-  return {
-    transform: `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) rotateY(${rotateY.toFixed(2)}deg) scale(${scale.toFixed(2)})`,
-    opacity: opacity.toFixed(2),
-    zIndex: Math.round(z),
+  // When card hovered — update content AND dots
+  const handleCardHover = (index) => {
+    setActiveIndex(index);
   };
-};
 
+  const handleMouseMove = (e) => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    const rect = container.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      targetScrollRef.current = pct * (container.scrollWidth - rect.width) * 0.6;
+  };
 
+  if (!isMounted) {
+    return <section className="rec-section" style={{minHeight:'70vh',background:'linear-gradient(135deg,#FFFFF0,#FAF0E6)'}}></section>;
+  }
+
+  const active = recognitions[activeIndex];
 
   return (
-    <>
-      <HeroSection />
-
-
-      {/* ═══════════════════════════════════════════════════
-    BLOCK 1: WHY US BANNER
-    Place this after the Hero section
-    Requires: whyUsRef, whyUsPhase, chipsVisible, activeChip,
-              setActiveChip, WHYUS_FRAMES, whyGifIdx,
-              pingPongSeq, whyImgIdx
-═══════════════════════════════════════════════════ */}
-<section className="why-us-banner" ref={whyUsRef} onClick={() => setActiveChip(null)}>
-<div className="why-us-wood-bg" style={{ 
-  backgroundImage: `url(${woodBg.src})`}
-}  />
-  {/* WHY US? animated heading — top left */}
-  <div className="why-us-clip">
-    <div
-      className="why-us-text"
-      style={{
-        fontSize: whyUsPhase === 'small' ? 'clamp(44px, 7vw, 96px)' : 'clamp(72px, 13vw, 160px)',
-        transform: whyUsPhase === 'hidden' ? 'translateY(110%)' : 'translateY(0%)',
-        opacity: whyUsPhase === 'hidden' ? 0 : 1,
-        transition: whyUsPhase === 'hidden'
-          ? 'none'
-          : whyUsPhase === 'big'
-          ? 'transform 0.55s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease'
-          : 'font-size 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1)',
-      }}
-    >
-      WHY US?
-    </div>
-  </div>
-
-  {/* Left chips — chips 0 & 1 (desktop left col + mobile) */}
-  <div className="why-us-left">
-    {[
-      { label: 'High in Fibre',      why: 'Keeps you full. Fuels your day. Supports digestion naturally.',       color: '#E8D5C4', textDark: true },
-      { label: 'Low Glycemic Index', why: 'GI of 44. No sugar spikes. Steady energy from first bite to last.',  color: '#c2886eff', textDark: true },
-    ].map((f, i) => (
-      <div
-        key={i}
-        className={`why-chip-row${chipsVisible ? ' chips-visible' : ''}`}
-        style={{ transitionDelay: `${i * 0.1}s` }}
-      >
-        <div
-          className={`why-chip${activeChip === i ? ' chip-mobile-active' : ''}`}
-          style={{ '--chip-color': f.color }}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (activeChip === i) { window.location.href = '/science'; }
-            else { setActiveChip(i); }
-          }}
-        >
-          <div className="why-chip-inner" data-why={f.why} style={{ '--chip-color': f.color }}>
-            <span className="why-chip-label">{f.label}</span>
-            <Link href="/science" className="why-chip-expanded" style={{ background: f.color }} onClick={(e) => e.stopPropagation()}>
-              <p className="why-chip-why" style={f.textDark ? { color: 'rgba(30,20,10,0.88)' } : {}}>{f.why}</p>
-            </Link>
-          </div>
-        </div>
-        <span className="why-chip-callout">
-          <span className="why-chip-line" />
-          <span className="why-chip-dot" />
-        </span>
-      </div>
-    ))}
-  </div>
-
-  {/* Centre gif — desktop only (absolutely centred) */}
-  <div className="why-us-desktop-gif">
-    <img src={WHYUS_FRAMES[whyGifIdx].src} />
-  </div>
-
-  {/* Right chips — chips 2 & 3 (desktop right col only) */}
-  <div className="why-us-right">
-    {[
-      { label: '0% Cholesterol',   why: 'Zero cholesterol. Every ingredient earns its place.',          color: '#9b7e67ff', textDark: false },
-      { label: 'No Preservatives', why: 'Nothing hidden. Nothing artificial. Just honest, clean food.', color: '#C8D9B8',   textDark: false },
-    ].map((f, i) => (
-      <div
-        key={i + 2}
-        className={`why-chip-row why-chip-row--right-col${chipsVisible ? ' chips-visible' : ''}`}
-        style={{ transitionDelay: `${(i + 2) * 0.1}s` }}
-      >
-        <span className="why-chip-callout why-chip-callout--left">
-          <span className="why-chip-dot" />
-          <span className="why-chip-line" />
-        </span>
-        <div
-          className={`why-chip${activeChip === i + 2 ? ' chip-mobile-active' : ''}`}
-          style={{ '--chip-color': f.color }}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (activeChip === i + 2) { window.location.href = '/science'; }
-            else { setActiveChip(i + 2); }
-          }}
-        >
-          <div className="why-chip-inner" data-why={f.why} style={{ '--chip-color': f.color }}>
-            <span className="why-chip-label">{f.label}</span>
-            <Link href="/science" className="why-chip-expanded" style={{ background: f.color }} onClick={(e) => e.stopPropagation()}>
-              <p className="why-chip-why" style={f.textDark ? { color: 'rgba(30,20,10,0.88)' } : {}}>{f.why}</p>
-            </Link>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-
-  {/* Mobile-only: chips 2 & 3 shown below left chips */}
-  <div className="why-us-mobile-extra">
-    {[
-      { label: '0% Cholesterol',   why: 'Zero cholesterol. Every ingredient earns its place.',          color: '#9b7e67ff', textDark: false },
-      { label: 'No Preservatives', why: 'Nothing hidden. Nothing artificial. Just honest, clean food.', color: '#C8D9B8',   textDark: false },
-    ].map((f, i) => (
-      <div
-        key={i + 2}
-        className={`why-chip-row${chipsVisible ? ' chips-visible' : ''}`}
-        style={{ transitionDelay: `${(i + 2) * 0.1}s` }}
-      >
-        <div
-          className={`why-chip${activeChip === i + 2 ? ' chip-mobile-active' : ''}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (activeChip === i + 2) { window.location.href = '/science'; }
-            else { setActiveChip(i + 2); }
-          }}
-        >
-          <div className="why-chip-inner">
-            <span className="why-chip-label">{f.label}</span>
-            <Link href="/science" className="why-chip-expanded" style={{ background: f.color }} onClick={(e) => e.stopPropagation()}>
-              <p className="why-chip-why" style={f.textDark ? { color: 'rgba(30,20,10,0.88)' } : {}}>{f.why}</p>
-            </Link>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-
-  {/* Mobile: ping-pong product image */}
-  <div className="why-us-products-img">
-    <img
-      src={pingPongSeq[whyImgIdx].src}
-      alt="Win-Dia Products"
-      style={{ width: '100%', height: 'auto', objectFit: 'contain', display: 'block' }}
-    />
-  </div>
-
-  {/* CTA */}
-  <Link href="/science" className="why-us-cta">
-    Uncover the Science →
-  </Link>
-
-</section>
-
-
-{/* ═══════════════════════════════════════════════════
-    BLOCK 2: RANGE CATEGORIES
-    Place this after the Why Us section
-    Images used: /jeera (2).png, /methi (2).png (already in /public)
-═══════════════════════════════════════════════════ */}
-<section className="products" id="shop">
-  <div className="products-split">
-
-    {/* LEFT — Everyday Classics Range */}
-    <div className="products-split-left">
-      <img src={jeeraImg.src} alt="Jeera" className="products-peek products-peek-left" />
-      <div className="products-split-content products-split-content--left">
-        <div className="products-split-eyebrow">Crafted from Tradition</div>
-        <h2 className="products-split-title"><em>Everyday Classics</em><br/>Range</h2>
-        <p className="products-split-desc">Wholesome ingredients, authentic flavors, and satisfying crunch for daily enjoyment.</p>
-        <Link href="/shop" className="products-split-btn products-split-btn--dark">Explore Classics Range →</Link>
-      </div>
-    </div>
-
-    {/* RIGHT — Gluten-Free Range */}
-    <div className="products-split-right">
-      <img src={methiImg.src} alt="Methi" className="products-peek products-peek-right" />
-      <div className="products-split-content products-split-content--right">
-        <div className="products-split-eyebrow">Made for Mindful Snacking</div>
-        <h2 className="products-split-title"><em>Gluten-Free</em><br/>Range</h2>
-        <p className="products-split-desc">Lighter, easy-to-digest options without compromising on taste and crunch.</p>
-        <Link href="/shop" className="products-split-btn products-split-btn--light">Explore Gluten-Free Range →</Link>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-{/* ═══════════════════════════════════════════════════
-    BLOCK 3: FEATURED PRODUCTS
-    Place this after the Range Categories section
-    Requires: activeProduct, setActiveProduct,
-              productFrame, activateProduct, deactivateProduct,
-              setActiveChip (from block-1, or just pass null setter)
-    Images used: all in /public (methi, jeera, curry leaf, garlic variants)
-═══════════════════════════════════════════════════ */}
-<section className="recipes-banner" id="recipes" 
-style={{ backgroundImage: `url(${featuredBg.src})`}}
-onClick={() => {
-  setActiveChip(null);
-  Object.keys(productTimers.current).forEach(k => { clearTimeout(productTimers.current[k]); });
-  setProductFrame({});
-  setActiveProduct(null);
-}}>
-
-  {/* Title */}
-  <div className="featured-eyebrow">OUR FEATURED PRODUCTS</div>
-
-  {/* Product grid */}
-  <div className="featured-grid">
-    {[
-  { base: methiBase.src, tilt: methiTilt.src, opening: methiOpening.src, open: methiOpen.src, name: 'Methi Thins', price: '₹220' },
-  { base: jeeraBase.src, tilt: jeeraTilt.src, opening: jeeraOpening.src, open: jeeraOpen.src, name: 'Jeera Thins', price: '₹180' },
-  { base: curryBase.src, tilt: curryTilt.src, opening: curryOpening.src, open: curryOpen.src, name: 'Curry Leaf Thins', price: '₹180' },
-  { base: garlicBase.src, tilt: garlicTilt.src, opening: garlicOpening.src, open: garlicOpen.src, name: 'Garlic Thins', price: '₹200' },
-].map((p, i) => {
-      const frame = productFrame[i] || 'base';
-      const src = p[frame];
-      return (
-        <div
-          key={i}
-          className="featured-item"
-          onMouseEnter={() => { setActiveProduct(i); activateProduct(i); }}
-          onMouseLeave={() => deactivateProduct(i)}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (activeProduct === i) { deactivateProduct(i); }
-            else { setActiveProduct(i); activateProduct(i); }
-          }}
-        >
-          <div className="featured-img-wrap">
-            <img src={src} alt={p.name} className="featured-frame" />
-          </div>
-          <div className="featured-info">
-            <div className="featured-name">{p.name}</div>
-            <div className="featured-price">{p.price} <span>/ 250g</span></div>
-            <Link href="/shop" className="featured-add" onClick={e => e.stopPropagation()}>Add to Cart</Link>
-          </div>
-        </div>
-      );
-    })}
-  </div>
-
-  {/* Explore CTA */}
-  <div className="featured-explore-wrap">
-    <div className="featured-explore-rule">
-      <span className="featured-explore-line" />
-      <span className="featured-explore-glitter">✦ ✦ ✦</span>
-      <span className="featured-explore-line" />
-    </div>
-    <Link href="/shop" className="featured-explore-cta">
-      <span className="featured-explore-label">Explore Our Full Collection</span>
-      <span className="featured-explore-arrow">→</span>
-    </Link>
-  </div>
-
-</section>
-      <Testimonials />
-      
-{/* 
-  ════════════════════════════════════════════════
-    BLOCK 1: RECOGNITION SECTION
-    Place this as the first section after Hero
-════════════════════════════════════════════════  */}
-<section className="rec-section">
-  {/* Dynamic Background */}
-  <div className="rec-bg-layer">
-    {recognitions.map((item, index) => (
-      <motion.div key={index} className="rec-bg-item" initial={{opacity:0}} animate={{opacity:recognitionActiveIndex===index?1:0}} transition={{duration:0.5,ease:'easeInOut'}}>
-        <img src={item.bgImage} alt="" style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover'}} />
-        <div className="rec-bg-overlay1" />
-        <div className="rec-bg-overlay2" />
-      </motion.div>
-    ))}
-  </div>
-
-  <div className="rec-main">
-    {/* Desktop Nav Dots */}
-    <div className="rec-nav-desktop">
-      {recognitions.map((_, index) => (
-        <button key={index} onClick={() => setRecognitionActiveIndex(index)} className="rec-nav-btn">
-          <motion.div className={`rec-nav-dot${recognitionActiveIndex===index?' active':''}`} whileHover={{scale:1.5}} />
-          {index < recognitions.length - 1 && <div className="rec-nav-line" />}
-        </button>
-      ))}
-    </div>
-
-    {/* Mobile Nav Dots */}
-    <div className="rec-nav-mobile">
-      {recognitions.map((_, index) => (
-        <button key={index} onClick={() => setRecognitionActiveIndex(index)} className="rec-nav-btn">
-          <motion.div className={`rec-nav-dot-mobile${recognitionActiveIndex===index?' active':''}`} whileTap={{scale:1.6}} />
-        </button>
-      ))}
-    </div>
-
-    <div className="rec-content-area">
-      {/* Left: Text Content */}
-      <div className="rec-left">
-        <div className="rec-left-inner">
-          <div className="rec-stack">
-            <motion.div key={`badge-${recognitionActiveIndex}`} initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.3}}>
-              <span className="rec-badge">{activeRecognition.organization}</span>
-            </motion.div>
-            <motion.h2 key={`title-${recognitionActiveIndex}`} className="rec-title" initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.3,delay:0.05}}>
-              {activeRecognition.title}
-            </motion.h2>
-            <motion.p key={`sub-${recognitionActiveIndex}`} className="rec-subtitle" initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.3,delay:0.1}}>
-              {activeRecognition.subtitle}
-            </motion.p>
-            <motion.p key={`desc-${recognitionActiveIndex}`} className="rec-desc" initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.3,delay:0.15}}>
-              {activeRecognition.description}
-            </motion.p>
-            <motion.div key={`cta-${recognitionActiveIndex}`} initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.3,delay:0.2}}>
-              <a href={activeRecognition.blogUrl} className="rec-cta">
-                <span>Read Full Story</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            </motion.div>
-          </div>
-        </div>
+    <section className="rec-section">
+      <div className="rec-bg-layer">
+        {recognitions.map((item, index) => (
+          <motion.div key={index} className="rec-bg-item" initial={{opacity:0}} animate={{opacity:activeIndex===index?1:0}} transition={{duration:0.5,ease:'easeInOut'}}>
+            <img src={item.bgImage} alt="" style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover'}} />
+            <div className="rec-bg-overlay1" />
+            <div className="rec-bg-overlay2" />
+          </motion.div>
+        ))}
       </div>
 
-      {/* Right: Card Carousel */}
-      <div className="rec-right">
-        <div ref={recognitionScrollRef} onMouseMove={handleRecognitionMouseMove} className="rec-scroll">
-          <div className="rec-cards-row">
-            {recognitions.map((item, index) => (
-              <motion.button key={index} onMouseEnter={() => setRecognitionActiveIndex(index)} className="rec-card-btn" whileHover={{scale:1.05,y:-8}} transition={{duration:0.4,ease:[0.34,1.56,0.64,1]}}>
-                <div className={`rec-card${recognitionActiveIndex===index?' active':''}`}>
-                  <img src={item.image} alt={item.title} style={{width:'100%',height:'100%',objectFit:'contain'}} />
-                </div>
-              </motion.button>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-{/* ════════════════════════════════════════════════
-    BLOCK 2: FOUNDERS SECTION
-    Place this after the Recognition section
-════════════════════════════════════════════════ */}
-<section className="fnd-section">
-  <div className="fnd-bg-blob1"></div>
-  <div className="fnd-bg-blob2"></div>
-
-  <div className="fnd-container">
-
-    {/* Header */}
-    <motion.div className="fnd-header" initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.8}}>
-      <div className="fnd-header-label-row">
-        <span className="fnd-header-line"></span>
-        <span className="fnd-header-label">The Story Behind</span>
-        <span className="fnd-header-line right"></span>
-      </div>
-      <h2 className="fnd-header-title">
-        Two journeys. <span>One mission.</span>
-      </h2>
-      <p className="fnd-header-desc">
-        Personal experiences with health and nutrition led us to create Win-Dia. Every product is a testament to our shared belief in better, gut-friendly snacking.
-      </p>
-    </motion.div>
-
-    {/* FOUNDER 1 */}
-    <motion.div initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} transition={{duration:0.8}}>
-      <div className="fnd-grid">
-        <motion.div className="fnd-image-col" initial={{opacity:0,x:-40}} whileInView={{opacity:1,x:0}} viewport={{once:true}} transition={{duration:0.9,delay:0.2}}>
-          <div className="fnd-image-wrapper">
-            <div className="fnd-number">01</div>
-            <div className="fnd-image-frame">
-              <img src={founderTejaswini.src} alt="G Tejaswini" style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover'}} />
-              <div className="fnd-image-overlay"></div>
-              <div className="fnd-nameplate">
-                <p className="fnd-nameplate-role">Founder</p>
-                <p className="fnd-nameplate-name">G Tejaswini</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div className="fnd-content-col" initial={{opacity:0,x:40}} whileInView={{opacity:1,x:0}} viewport={{once:true}} transition={{duration:0.9,delay:0.3}}>
-          <div className="fnd-role-label">
-            <span className="fnd-role-line"></span>
-            <span className="fnd-role-text">Managing Director and Founder</span>
-          </div>
-          <blockquote className="fnd-quote">
-            <p>In todays busy world, people are increasingly dependent on processed and junk foods made with refined flour and unhealthy oils, affecting gut health and leading to lifestyle issues at an early age.</p>
-          </blockquote>
-          <div className="fnd-story">
-            <p>When we studied this growing concern, we realized that the modern diet suffers from a <strong>MAJOR FIBRE GAP</strong>. Driven by this purpose, our effort is to fill the fibre gap through healthier coconut flour-based snacks.</p>
-            <p>With <strong>WIN-DIA</strong> and our tagline <span className="fnd-highlight">Start Your Second Innings,</span> we aim to inspire people towards smarter and healthier snacking choices for better gut health and well-being.</p>
-          </div>
-        </motion.div>
-      </div>
-    </motion.div>
-
-    {/* Divider */}
-    <div className="fnd-divider">
-      <div className="fnd-divider-inner">
-        <div className="fnd-divider-line"></div>
-        <div className="fnd-divider-dot"></div>
-        <div className="fnd-divider-line right"></div>
-      </div>
-    </div>
-
-    {/* FOUNDER 2 */}
-    <motion.div initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} transition={{duration:0.8}}>
-      <div className="fnd-grid reversed">
-        <motion.div className="fnd-content-col text-right-lg" initial={{opacity:0,x:-40}} whileInView={{opacity:1,x:0}} viewport={{once:true}} transition={{duration:0.9,delay:0.3}}>
-          <div className="fnd-role-label">
-            <span className="fnd-role-line"></span>
-            <span className="fnd-role-text">CEO and Co-Founder</span>
-          </div>
-          <blockquote className="fnd-quote">
-            <p>My journey into this field began through a personal experience with diabetes and digestive health challenges. After changing my diet and lifestyle, I was able to move away from medications and truly begin my second innings during my middle age.</p>
-          </blockquote>
-          <div className="fnd-story">
-            <p>Today, the time has come for people to start their second innings much earlier - by choosing healthier food habits at a young age itself, avoiding future health complications.</p>
-            <p>This realization inspired us to create <strong>WIN-DIA</strong>, with an effort to fill the growing fibre gap through innovative coconut flour-based snacks that support better gut health and mindful living.</p>
-          </div>
-        </motion.div>
-
-        <motion.div className="fnd-image-col right-side" initial={{opacity:0,x:40}} whileInView={{opacity:1,x:0}} viewport={{once:true}} transition={{duration:0.9,delay:0.2}}>
-          <div className="fnd-image-wrapper ml-auto">
-            <div className="fnd-number right">02</div>
-            <div className="fnd-image-frame">
-              <img src={founderSridhar.src} alt="T N Sridhar" style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover'}} />
-              <div className="fnd-image-overlay"></div>
-              <div className="fnd-nameplate">
-                <p className="fnd-nameplate-role">Co-Founder</p>
-                <p className="fnd-nameplate-name">T N Sridhar</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </motion.div>
-
-    {/* Mission */}
-    <motion.div className="fnd-mission" initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.8,delay:0.2}}>
-      <div className="fnd-mission-card">
-        <div className="fnd-mission-corner tl"></div>
-        <div className="fnd-mission-corner tr"></div>
-        <div className="fnd-mission-corner bl"></div>
-        <div className="fnd-mission-corner br"></div>
-        <div className="fnd-mission-label-row">
-          <span className="fnd-mission-label-line"></span>
-          <span className="fnd-mission-label">Our Shared Mission</span>
-          <span className="fnd-mission-label-line"></span>
-        </div>
-        <p className="fnd-mission-quote">We believe a healthy gut is the foundation of a happier and healthier life.</p>
-        <p className="fnd-mission-attribution">- G Tejaswini and T N Sridhar</p>
-        <motion.button className="fnd-mission-btn" whileHover={{scale:1.05,y:-2}} whileTap={{scale:0.98}}>
-          <span>Discover Our Story</span>
-          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </motion.button>
-      </div>
-    </motion.div>
-
-  </div>
-</section>
-
-
-{/* ════════════════════════════════════════════════
-    BLOCK 3: COMMUNITY SECTION
-    Place this after the Founders section
-════════════════════════════════════════════════ */}
-<section className="com-section">
-  {/* Decorative */}
-  <div className="com-decor">
-    <motion.div className="com-decor-leaf" animate={{rotate:[0,5,0],scale:[1,1.05,1]}} transition={{duration:8,repeat:Infinity,ease:'easeInOut'}}>
-      <svg viewBox="0 0 200 200" fill="none"><path d="M100 20 Q120 60, 140 100 Q120 140, 100 180 Q80 140, 60 100 Q80 60, 100 20" fill="#93C572" opacity="0.3"/><path d="M100 20 Q110 60, 120 100 Q110 140, 100 180" stroke="#93C572" strokeWidth="2" opacity="0.5"/></svg>
-    </motion.div>
-    <motion.div className="com-decor-sparkle" animate={{scale:[1,1.5,1],opacity:[0.3,0.8,0.3],rotate:[0,180,360]}} transition={{duration:4,repeat:Infinity,ease:'easeInOut'}}>
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 0L22 18L20 40L18 18L20 0Z" fill="#A8D08D" opacity="0.6"/><path d="M0 20L18 22L40 20L18 18L0 20Z" fill="#A8D08D" opacity="0.6"/></svg>
-    </motion.div>
-    <motion.div className="com-decor-dot1" animate={{y:[0,-30,0],opacity:[0.3,0.8,0.3]}} transition={{duration:5,repeat:Infinity,ease:'easeInOut'}} />
-    <motion.div className="com-decor-dot2" animate={{y:[0,20,0],opacity:[0.4,0.9,0.4]}} transition={{duration:4,repeat:Infinity,ease:'easeInOut',delay:2}} />
-  </div>
-
-  <div className="com-container">
-    {/* Top grid */}
-    <div className="com-top-grid">
-
-      {/* Left content */}
-      <motion.div className="com-left" initial={{opacity:0,x:-50}} whileInView={{opacity:1,x:0}} viewport={{once:true}} transition={{duration:0.8}}>
-        <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.6,delay:0.2}}>
-          <span className="com-label">Our Community</span>
-        </motion.div>
-        <motion.h3 className="com-tagline" initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.6,delay:0.25}}>
-          Stories that inspire. <em>Moments that connect.</em>
-        </motion.h3>
-        <motion.p className="com-desc" initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.6,delay:0.3}}>
-          Every bite celebrates the goodness of coconut flour and the warmth of family traditions. Join our community in rediscovering snacking that nourishes both body and soul.
-        </motion.p>
-        <motion.div className="com-stats" initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.6,delay:0.35}}>
-          <div className="com-stat"><span className="com-stat-value">10K+</span><span className="com-stat-label">Happy Families</span></div>
-          <div className="com-stat"><span className="com-stat-value">44 GI</span><span className="com-stat-label">Low Glycemic</span></div>
-          <div className="com-stat"><span className="com-stat-value">4.85g</span><span className="com-stat-label">Fiber Rich</span></div>
-        </motion.div>
-      </motion.div>
-
-      {/* 3D Carousel */}
-      <motion.div className="com-carousel-col" initial={{opacity:0,scale:0.8}} whileInView={{opacity:1,scale:1}} viewport={{once:true}} transition={{duration:0.8}}>
-        <div className="com-carousel-3d">
-          <div className="com-carousel-stage" style={{transformStyle:'preserve-3d'}}>
-            {communitySlides.map((slide, index) => {
-              const style = getCommunityImageStyle(index);
-              return (
-                <div key={index} className="com-carousel-item" style={{...style,transformStyle:'preserve-3d',backfaceVisibility:'hidden'}}>
-                  <div className="com-carousel-card">
-                    <img src={slide.src} alt={slide.alt} style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}} />
-                    <div className="com-carousel-overlay"></div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </motion.div>
-    </div>
-
-    {/* Video section */}
-    <motion.div className="com-video-section" initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} transition={{duration:0.6}}>
-      <div className="com-video-bg">
-        <img src={videoBg.src} alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
-      </div>
-
-      <div className="com-video-inner">
-        <div className="com-video-scroll"
-          onMouseMove={(e) => {
-            const c = e.currentTarget;
-            const rect = c.getBoundingClientRect();
-            const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-            c.scrollLeft = pct * (c.scrollWidth - rect.width);
-          }}
-        >
-          <div className="com-video-row">
-            {[{id:1,offset:40},{id:2,offset:20},{id:3,offset:0},{id:4,offset:20},{id:5,offset:40}].map((item, index) => (
-              <div key={index} className="com-video-card-wrap" style={{marginBottom:`${item.offset}px`}}>
-                <div className="com-video-card">
-                  <div className="com-video-card-bg"></div>
-                  <div className="com-video-card-content">
-                    <div className="com-video-play-btn">
-                      <svg viewBox="0 0 24 24" fill="#7FB069"><path d="M8 5v14l11-7z"/></svg>
-                    </div>
-                    <p className="com-video-story-label">Story {item.id}</p>
-                    <p className="com-video-coming-soon">Video Coming Soon</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom CTA */}
-        <motion.div className="com-bottom-cta" initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.6,delay:0.3}}>
-          <p className="com-bottom-cta-text">Discover our community stories</p>
-          <div className="com-bottom-cta-row">
-            <a href="https://www.instagram.com/Kalpavristi_Coco_FAB" target="_blank" rel="noopener noreferrer" className="com-insta-link">
-              <svg fill="currentColor" viewBox="0 0 24 24" width="28" height="28"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-              <span>@Kalpavristi_Coco_FAB</span>
-            </a>
-            <span className="com-separator">•</span>
-            <button className="com-join-btn">
-              <span>Join Our Family</span>
-              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+      <div className="rec-main">
+        {/* Desktop nav dots */}
+        <div className="rec-nav-desktop">
+          {recognitions.map((_, index) => (
+            <button key={index} onClick={() => handleDotClick(index)} className="rec-nav-btn">
+              <motion.div className={`rec-nav-dot${activeIndex===index?' active':''}`} whileHover={{scale:1.5}} />
+              {index < recognitions.length - 1 && <div className="rec-nav-line" />}
             </button>
+          ))}
+        </div>
+
+        {/* Mobile nav dots */}
+        <div className="rec-nav-mobile">
+          {recognitions.map((_, index) => (
+            <button key={index} onClick={() => handleDotClick(index)} className="rec-nav-btn">
+              <motion.div className={`rec-nav-dot-mobile${activeIndex===index?' active':''}`} whileTap={{scale:1.6}} />
+            </button>
+          ))}
+        </div>
+
+        <div className="rec-content-area">
+          {/* Left: text */}
+          <div className="rec-left">
+            <div className="rec-left-inner">
+              <div className="rec-stack">
+                <motion.div key={`badge-${activeIndex}`} initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.3}}>
+                  <span className="rec-badge">{active.organization}</span>
+                </motion.div>
+                <motion.h2 key={`title-${activeIndex}`} className="rec-title" initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.3,delay:0.05}}>
+                  {active.title}
+                </motion.h2>
+                <motion.p key={`sub-${activeIndex}`} className="rec-subtitle" initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.3,delay:0.1}}>
+                  {active.subtitle}
+                </motion.p>
+                <motion.p key={`desc-${activeIndex}`} className="rec-desc" initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.3,delay:0.15}}>
+                  {active.description}
+                </motion.p>
+                <motion.div key={`cta-${activeIndex}`} initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{duration:0.3,delay:0.2}}>
+                  <a href={active.blogUrl} className="rec-cta" target="_blank" rel="noopener noreferrer">
+                    <span>Read Full Story</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </a>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: cards */}
+          <div className="rec-right">
+            <div ref={scrollContainerRef} onMouseMove={handleMouseMove} className="rec-scroll">
+              <div className="rec-cards-row">
+                {recognitions.map((item, index) => (
+                  <motion.a
+                    key={index}
+                    href={item.blogUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => handleCardHover(index)}
+                    className="rec-card-btn"
+                    whileHover={{scale:1.05,y:-8}}
+                    transition={{duration:0.4,ease:[0.34,1.56,0.64,1]}}
+                    style={{textDecoration:'none',display:'block'}}
+                  >
+                    <div className={`rec-card${activeIndex===index?' active':''}`}>
+                      <img src={item.image} alt={item.title} style={{width:'100%',height:'100%',objectFit:'contain'}} />
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+/* ============================================================
+   FOUNDER
+   ============================================================ */
+
+function FounderSection(){
+  const reducedMotion = useReducedMotion();
+  const viewProps = (delay = 0) => (
+    reducedMotion
+      ? { initial: false, whileInView: { opacity: 1, y: 0, x: 0 }, viewport: { once: true }, transition: { duration: 0 } }
+      : { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.8, delay } }
+  );
+
+  return (
+    <section id="founders" className="fnd-section" aria-labelledby="founders-heading">
+      <div className="fnd-bg-blob1" aria-hidden="true" />
+      <div className="fnd-bg-blob2" aria-hidden="true" />
+      <div className="fnd-container">
+
+        <motion.header className="fnd-header" {...viewProps()}>
+          <div className="fnd-header-label-row">
+            <span className="fnd-header-line" aria-hidden="true" />
+            <span className="fnd-header-label">Meet the Founders of Win-Dia</span>
+            <span className="fnd-header-line right" aria-hidden="true" />
+          </div>
+          <h2 id="founders-heading" className="fnd-header-title">Two journeys. <span>One mission.</span></h2>
+          <p className="fnd-header-desc">Personal experiences with health and nutrition led us to create Win-Dia. Every product is a testament to our shared belief in better, gut-friendly snacking.</p>
+        </motion.header>
+
+        <motion.article className="fnd-row" {...viewProps()}>
+          <motion.div
+            className="fnd-image-side"
+            {...(reducedMotion
+              ? { initial: false, whileInView: { opacity: 1, x: 0 }, viewport: { once: true } }
+              : { initial: { opacity: 0, x: -40 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.9, delay: 0.2 } })}
+          >
+            <div className="fnd-image-wrap">
+              <div className="fnd-number" aria-hidden="true">01</div>
+              <div className="fnd-image-frame">
+                <SafeImage src={founderTejaswini.src} alt="G Tejaswini, Founder of Win-Dia" fill style={{objectFit:'cover'}} sizes="(max-width: 768px) 100vw, 50vw" /> 
+                <div className="fnd-image-overlay" aria-hidden="true" />
+                <div className="fnd-nameplate">
+                  <p className="fnd-nameplate-role">Founder</p>
+                  <p className="fnd-nameplate-name">G Tejaswini</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="fnd-content-side"
+            {...(reducedMotion
+              ? { initial: false, whileInView: { opacity: 1, x: 0 }, viewport: { once: true } }
+              : { initial: { opacity: 0, x: 40 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.9, delay: 0.3 } })}
+          >
+            <div className="fnd-role-label">
+              <span className="fnd-role-line" aria-hidden="true" />
+              <span className="fnd-role-text">Managing Director and Founder</span>
+            </div>
+            <blockquote className="fnd-quote">
+              <p>{'In today\'s busy world, people are increasingly dependent on processed and junk foods made with refined flour and unhealthy oils, affecting gut health and leading to lifestyle issues at an early age.'}</p>
+            </blockquote>
+            <div className="fnd-story">
+              <p>When we studied this growing concern, we realized that the modern diet suffers from a <strong>MAJOR FIBRE GAP</strong>. Driven by this purpose, our effort is to fill the fibre gap through healthier coconut flour-based snacks.</p>
+              <p>With <strong>WIN-DIA</strong> and our tagline <span className="fnd-highlight">Start Your Second Innings,</span> we aim to inspire people towards smarter and healthier snacking choices for better gut health and well-being.</p>
+            </div>
+          </motion.div>
+        </motion.article>
+
+        <div className="fnd-divider" aria-hidden="true">
+          <div className="fnd-divider-inner">
+            <div className="fnd-divider-line" />
+            <div className="fnd-divider-dot" />
+            <div className="fnd-divider-line right" />
+          </div>
+        </div>
+
+        <motion.article className="fnd-row reversed" {...viewProps()}>
+          <motion.div
+            className="fnd-image-side"
+            {...(reducedMotion
+              ? { initial: false, whileInView: { opacity: 1, x: 0 }, viewport: { once: true } }
+              : { initial: { opacity: 0, x: 40 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.9, delay: 0.2 } })}
+          >
+            <div className="fnd-image-wrap">
+              <div className="fnd-number right" aria-hidden="true">02</div>
+              <div className="fnd-image-frame">
+                <SafeImage src={founderSridhar.src} alt="T N Sridhar, Co-Founder of Win-Dia" fill style={{objectFit:'cover'}} sizes="(max-width: 768px) 100vw, 50vw" />
+                <div className="fnd-image-overlay" aria-hidden="true" />
+                <div className="fnd-nameplate">
+                  <p className="fnd-nameplate-role">Co-Founder</p>
+                  <p className="fnd-nameplate-name">T N Sridhar</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="fnd-content-side"
+            {...(reducedMotion
+              ? { initial: false, whileInView: { opacity: 1, x: 0 }, viewport: { once: true } }
+              : { initial: { opacity: 0, x: -40 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.9, delay: 0.3 } })}
+          >
+            <div className="fnd-role-label">
+              <span className="fnd-role-line" aria-hidden="true" />
+              <span className="fnd-role-text">CEO and Co-Founder</span>
+            </div>
+            <blockquote className="fnd-quote">
+              <p>My journey into this field began through a personal experience with diabetes and digestive health challenges. After changing my diet and lifestyle, I was able to move away from medications and truly begin my second innings during my middle age.</p>
+            </blockquote>
+            <div className="fnd-story">
+              <p>Today, the time has come for people to start their second innings much earlier - by choosing healthier food habits at a young age itself, avoiding future health complications.</p>
+              <p>This realization inspired us to create <strong>WIN-DIA</strong>, with an effort to fill the growing fibre gap through innovative coconut flour-based snacks that support better gut health and mindful living.</p>
+            </div>
+          </motion.div>
+        </motion.article>
+
+        <motion.div className="fnd-mission" {...viewProps(0.2)}>
+          <div className="fnd-mission-card">
+            <div className="fnd-mission-corner tl" aria-hidden="true" />
+            <div className="fnd-mission-corner tr" aria-hidden="true" />
+            <div className="fnd-mission-corner bl" aria-hidden="true" />
+            <div className="fnd-mission-corner br" aria-hidden="true" />
+            <div className="fnd-mission-label-row">
+              <span className="fnd-mission-label-line" aria-hidden="true" />
+              <span className="fnd-mission-label">Our Shared Mission</span>
+              <span className="fnd-mission-label-line" aria-hidden="true" />
+            </div>
+            <p className="fnd-mission-quote">We believe a healthy gut is the foundation of a happier and healthier life.</p>
+            <p className="fnd-mission-attribution">- G Tejaswini and T N Sridhar</p>
+            <a href="#community" className="fnd-mission-btn">
+              <span>Discover Our Story</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+};
+
+
+/* ============================================================
+   COMMUNITY
+   ============================================================ */
+
+function CommunityShowcase(){
+  const [isMounted, setIsMounted] = useState(false);
+  const videoScrollRef = useRef(null);
+  const animationFrameRef = useRef(null);
+  const targetScrollRef = useRef(0);
+  const currentScrollRef = useRef(0);
+
+  useEffect(() => { setIsMounted(true); }, []);
+
+  // Process Instagram embeds after mount
+  useEffect(() => {
+    if (!isMounted) return;
+    // Load Instagram embed script dynamically if not already loaded
+    if (window.instgrm) {
+      window.instgrm.Embeds.process();
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://www.instagram.com/embed.js';
+      script.async = true;
+      script.onload = () => {
+        if (window.instgrm) window.instgrm.Embeds.process();
+      };
+      document.body.appendChild(script);
+    }
+  }, [isMounted]);
+
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    const animate = () => {
+      if (!videoScrollRef.current || isScrollingRef.current) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      const diff = targetScrollRef.current - currentScrollRef.current;
+      currentScrollRef.current += diff * 0.08;
+      videoScrollRef.current.scrollLeft = currentScrollRef.current;
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+    animationFrameRef.current = requestAnimationFrame(animate);
+    return () => { if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current); };
+  }, [isMounted]);
+
+  // Scroll video cards to center (card 3) when section comes into view
+  useEffect(() => {
+    if (!isMounted) return;
+    const container = videoScrollRef.current;
+    if (!container) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Find card 3 (index 2) and center it
+            const cards = container.querySelectorAll('.com-video-card-wrap');
+            if (cards[2]) {
+              const card = cards[2];
+              const scrollTo = card.offsetLeft - (container.offsetWidth / 2) + (card.offsetWidth / 2);
+              container.scrollLeft = scrollTo;
+              currentScrollRef.current = scrollTo;
+              targetScrollRef.current = scrollTo;
+            }
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [isMounted]);
+
+  // Detect when user is manually scrolling (touch or touchpad)
+  useEffect(() => {
+    if (!isMounted) return;
+    const container = videoScrollRef.current;
+    if (!container) return;
+    const onScroll = () => {
+      isScrollingRef.current = true;
+      currentScrollRef.current = container.scrollLeft;
+      targetScrollRef.current = container.scrollLeft;
+      clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 150);
+    };
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => container.removeEventListener('scroll', onScroll);
+  }, [isMounted]);
+
+  const handleVideoMouseMove = (e) => {
+    // Only apply cursor scroll on non-touch devices
+    if (window.matchMedia('(hover: none)').matches) return;
+    if (!videoScrollRef.current) return;
+    const container = videoScrollRef.current;
+    const rect = container.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    targetScrollRef.current = pct * (container.scrollWidth - rect.width);
+  };
+
+  if (!isMounted) {
+    return <section className="com-section"><div className="com-container" style={{height:'600px'}}></div></section>;
+  }
+
+  return (
+    <section className="com-section">
+      <div className="com-decor">
+        <motion.div className="com-decor-leaf" animate={{rotate:[0,5,0],scale:[1,1.05,1]}} transition={{duration:8,repeat:Infinity,ease:'easeInOut'}}>
+          <svg viewBox="0 0 200 200" fill="none"><path d="M100 20 Q120 60, 140 100 Q120 140, 100 180 Q80 140, 60 100 Q80 60, 100 20" fill="#93C572" opacity="0.3"/><path d="M100 20 Q110 60, 120 100 Q110 140, 100 180" stroke="#93C572" strokeWidth="2" opacity="0.5"/></svg>
+        </motion.div>
+        <motion.div className="com-decor-sparkle" animate={{scale:[1,1.5,1],opacity:[0.3,0.8,0.3],rotate:[0,180,360]}} transition={{duration:4,repeat:Infinity,ease:'easeInOut'}}>
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 0L22 18L20 40L18 18L20 0Z" fill="#A8D08D" opacity="0.6"/><path d="M0 20L18 22L40 20L18 18L0 20Z" fill="#A8D08D" opacity="0.6"/></svg>
+        </motion.div>
+        <motion.div className="com-decor-dot1" animate={{y:[0,-30,0],opacity:[0.3,0.8,0.3]}} transition={{duration:5,repeat:Infinity,ease:'easeInOut'}} />
+        <motion.div className="com-decor-dot2" animate={{y:[0,20,0],opacity:[0.4,0.9,0.4]}} transition={{duration:4,repeat:Infinity,ease:'easeInOut',delay:2}} />
+      </div>
+
+      <div className="com-container">
+
+        {/* Hero Content */}
+        <motion.div className="com-left" style={{maxWidth:'720px',marginBottom:'48px'}} initial={{opacity:0,x:-50}} whileInView={{opacity:1,x:0}} viewport={{once:true}} transition={{duration:0.8}}>
+          <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.6,delay:0.2}}>
+            <span className="com-label">Our Community</span>
+          </motion.div>
+          <motion.h3 className="com-tagline" initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.6,delay:0.25}}>
+            Stories that inspire. <em>Moments that connect.</em>
+          </motion.h3>
+          <motion.p className="com-desc" initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.6,delay:0.3}}>
+            Every bite celebrates the goodness of coconut flour and the warmth of family traditions. Join our community in rediscovering snacking that nourishes both body and soul.
+          </motion.p>
+          <motion.div className="com-stats" initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.6,delay:0.35}}>
+            <div className="com-stat"><span className="com-stat-value">44 GI</span><span className="com-stat-label">Low Glycemic</span></div>
+            <div className="com-stat"><span className="com-stat-value">4.85g</span><span className="com-stat-label">Fiber Rich</span></div>
+          </motion.div>
+        </motion.div>
+
+        {/* Video section */}
+        <motion.div className="com-video-section" style={{marginTop:'0'}} initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} transition={{duration:0.6}}>
+          <div className="com-video-bg">
+            <img src={videoBg.src} alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
+          </div>
+          <div className="com-video-inner">
+            <div
+              ref={videoScrollRef}
+              className="com-video-scroll"
+              onMouseMove={handleVideoMouseMove}
+            >
+              <div className="com-video-row">
+                {[
+                  {id:1, offset:40,  type:'image', src:story1.src},
+                  {id:2, offset:20,  type:'video', src:'/video/story2.mp4'},
+                  {id:3, offset:0,   type:'video', src:'/video/story3.mp4'},
+                  {id:4, offset:20,  type:'video', src:'/video/story4.mp4'},
+                  {id:5, offset:40,  type:'image', src:story5.src},
+                ].map((item, index) => (
+                  <div key={index} className="com-video-card-wrap" style={{marginBottom:`${item.offset}px`}}>
+                    <div className="com-video-card">
+
+                      {item.type === 'image' ? (
+                        /* Image card */
+                        <img
+                          src={item.src}
+                          alt={`Story ${item.id}`}
+                          style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',borderRadius:'24px'}}
+                        />
+                      ) : (
+                        /* Video card */
+                        <video
+                          src={item.src}
+                          style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',borderRadius:'24px'}}
+                          loop
+                          muted
+                          playsInline
+                          onMouseEnter={e => e.target.play()}
+                          onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; }}
+                        />
+                      )}
+
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <motion.div className="com-bottom-cta" initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.6,delay:0.3}}>
+              <p className="com-bottom-cta-text">Discover our community stories</p>
+              <div className="com-bottom-cta-row">
+                <a href="https://www.instagram.com/Kalpavristi_Coco_FAB" target="_blank" rel="noopener noreferrer" className="com-insta-link">
+                  <svg fill="currentColor" viewBox="0 0 24 24" width="28" height="28"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  <span>@Kalpavristi_Coco_FAB</span>
+                </a>
+                <button className="com-join-btn">
+                  <span>Join Our Family</span>
+                  <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                </button>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
-    </motion.div>
-
-  </div>
-</section>
-
+    </section>
+  );
+};
 
 
-
-    </>
-  )
+export function Home(){
+    return(
+        <>
+          <HeroSection />
+          <WhyUsBanner />
+          <RangeCategories />
+          <FeaturedProducts />
+          <Testimonials />
+          <RecognitionSection />
+          <FounderSection/>
+          <CommunityShowcase/>
+        </>
+    )
 }
+
+
